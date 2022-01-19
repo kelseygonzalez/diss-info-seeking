@@ -1,0 +1,11 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+
+data/
+figs/
+assortativity/
+readings/
+paper2_files/
+paper2_cache/
