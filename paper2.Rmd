@@ -40,7 +40,7 @@ knitr::opts_chunk$set(echo = FALSE,
 
 
 if (!require("pacman")) install.packages("pacman")
-pacman::p_load(tidyverse, glue, extrafont, here, jtools, rms, modelsummary, showtext,thematic, kableExtra)
+pacman::p_load(tidyverse, glue, extrafont, here, jtools, rms, modelsummary, showtext,thematic, kableExtra, scales)
 
 
 rain <- read_rds(here('data', 'RAiN_vacc_clean.rds')) %>% 
@@ -107,45 +107,79 @@ theme_diss <- function(base_size = 14) {
 
 theme_set(theme_diss()) 
 
+conf_int_prop <- function(var){
+  p <- mean(!!var, na.rm = T)
+  q <- 1 - p
+  n <- nrow(rain)
+  min <- p - 1.96*sqrt((p*q)/n)
+  max <- p + 1.96*sqrt((p*q)/n) 
+  paste0(round(min, 2), ", ", round(max, 2))
+}
+
+print_perc <- function(var){
+  label_percent()(mean(var, na.rm = T))
+}
+
+side_by_side <- function(models, ...) {
+    estimates <- c("Coef." = "{estimate}{stars}", 
+                       "Std.Error" = "({std.error})")
+    models <- rep(models, each = length(estimates))
+    estimates <- rep(estimates,
+                     times = length(models)/length(estimates))
+    
+    alignment <- paste(rep('l', length(models) + 1), collapse = '')
+    
+    names(models) <- names(estimates)
+    
+    modelsummary(models = models, 
+                 estimate = estimates,
+                 statistic = NULL,
+                 align = alignment, ...)
+}
 ```
 
 # Intro
 It is unclear how individuals choose to search for information through the
 multimedia environment of the 21st century. Much of the research conducted in
 social networks and communication focus on senders, influencers, and persuasion
-strategies (Merton 1968) rather than on “the receiver as an active information
-seeker and processor. " (Johnson and Meischke 1993).
+strategies [@mertonManifestLatentFunctions1968] rather than on “the receiver as
+an active information seeker and processor."
+[@johnsonComprehensiveModelCancerRelated1993].
 
 Core discussion networks are the default lens to investigate network resources
 and social support in surveys. The underlying assumption is that individuals
 reach out to a handful of strong ties when in need of support, which can be
-elicited in surveys using name generators (Marsden 1987). This approach has
-yielded important insights, but largely overlooks crucial processes of resource
-activation (Hurlbert, Haines, and Beggs 2000; Perry and Pescosolido 2015; Smith
-2005). Small (2017) shows that the core discussion network does not capture how
-people activate social support in practice and indicates that people draw on
+elicited in surveys using name generators [@marsdenCoreDiscussionNetworks1987].
+This approach has yielded important insights, but largely overlooks crucial
+processes of resource activation [@hurlbertCoreNetworksTie2000;
+@perrySocialNetworkActivation2015; @smithDonPutMy2005]. Small
+[-@smallSomeoneTalk2017] shows that the core discussion network does not capture
+how people activate social support in practice and indicates that people draw on
 much broader social connections for support, also calling back to the weak ties
-research by Granovetter (1973). There is ongoing research investigating how
-weak-tie support holds for different support types based on the architecture put
-forward by House, Umberson, and Landis (1988) of instrumental, emotional, and
-informational support (Legewie and Gonzalez 2020). I follow the definition of
-Cohen and Wills (1985) and define informational support as “help in defining,
-understanding,  and coping with problematic events and include education,
-advice, or referral to another source of  support” (Winemiller et al. 1993:640).
+research by Granovetter [-@granovetterStrengthWeakTies1973]. There is ongoing
+research investigating how weak-tie support holds for different support types
+based on the architecture put forward by House, Umberson, and Landis
+[-@houseStructuresProcessesSocial1988] of instrumental, emotional, and
+informational support. I follow the definition of Cohen and Wills
+[-@cohenStressSocialSupport1985] and define informational support as “help in
+defining, understanding,  and coping with problematic events and include
+education, advice, or referral to another source of  support”
+[@winemillerMeasurementStrategiesSocial1993, p. 640].
 
 However, informational support can also be sought outside of the social network
 context, namely via computer-mediated information search tools such as the
 process of “Googling”. As the online environment began penetrating all facets of
 modern human life, it makes sense that performing online search has become one
-*f the most convenient vehicles for information search. While Small (2017)
-focuses on how support can depend on a network tie simply "happened to be
-there", online search is theoretically the most frictionless and costless mode
-*f support. There are three computer-mediated vehicles I consider for this
-analysis: search engines like Google, posting questions on online forums like
-subreddits or Facebook groups, and posting a status update online via Facebook
-*r Twitter. The first two comprise what I call “online search”, while the third
-is conceptually distinct and important to include in the survey; yet, it is a
-hybrid of social network activation and online search.
+*f the most convenient vehicles for information search. While Small
+[-@smallSomeoneTalk2017] focuses on how support can depend on a network tie
+simply "happened to be there", online search is theoretically the most
+frictionless and costless mode of support. There are three computer-mediated
+vehicles I consider for this analysis: search engines like Google, posting
+questions on online forums like subreddits or Facebook groups, and posting a
+status update online via Facebook or Twitter. The first two comprise what I call
+“online search”, while the third is conceptually distinct and important to
+include in the survey; yet, it is a hybrid of social network activation and
+online search.
 
 As online search or interaction also allows increased anonymity, no or lowered
 social cost, and the potential avoidance of embarrassment and other negative
@@ -155,24 +189,24 @@ information will have done so online.
 For this paper, I will use the case of Covid-19 vaccinations to explore the
 variation among information search vehicles. There are theoretical reasons why
 individuals would choose to search for information among their network ties
-instead of online search. For instance, Rains (2018) finds that patients tend to
-search for technical information about an illness online but turn to their
-social network for experiential information from others facing similar
-circumstances in the case of cancer. Moreover, if an individual distrusts the
-medical establishment, or popular media, they may be more likely to activate
-informational support among their social network or turn to online groups that
-validate their worldview (Bogers and Wernersen 2014).
+instead of online search. For instance, Rains
+[-@rainsCopingIllnessDigitally2018] finds that patients tend to search for
+technical information about an illness online but turn to their social network
+for experiential information from others facing similar circumstances in the
+case of cancer. Moreover, if an individual distrusts the medical establishment,
+or popular media, they may be more likely to activate informational support
+among their social network or turn to online groups that validate their
+worldview [@bogersHowSocialAre2014].
 
 This research project is important because the vehicles used to search by people
 impacts the information they are exposed to. Given the large swaths of both
-misinformation and disinformation regarding Covid-19 (Motta, Stecula, and
-Farhart 2020; Pathak, Agarawalla, and Gupta 2020; Shahsavari et al. 2020) and
+misinformation and disinformation regarding Covid-19 [@mottaHowRightLeaningMedia2020; @pathakInfodemicsCOVID19Role2020; @shahsavariConspiracyTimeCorona2020] and
 the measurable impacts this misinformation has had on pandemic-related health
 behaviors, how we choose to search for information affects our own lives and the
 lives of others. Moreover, individuals who do not utilize social networks for
 information search may feel like they have no network support, leading to
-feelings of network isolation with major implications for mental health (Thoits
-2011).
+feelings of network isolation with major implications for mental health 
+[@thoitsMechanismsLinkingSocial2011]
 
 ## section B: Research Questions
 * How do computer-mediated or interpersonal network information-seeking strategies vary across populations? 
@@ -181,69 +215,33 @@ feelings of network isolation with major implications for mental health (Thoits
 
 
 # Research Methodology
-The data used for this research project are based on original survey data sampled between `r format( min(rain$date), '%B %d, %Y')`  through `r format(max(rain$date), '%B %d, %Y')`.
-- grant sample
-- MTurk
-- Dates 
-- Locations
-
-## Descriptive Statistics
-
-###  Dependent Variables 
-search for info
-int_sought_
-
-
-search for info by type
-int_sought_fr_pers  
-int_sought_fr_dr    
-int_sought_fr_onlgroup
-int_sought_fr_onlnet
-int_sought_fr_onlsearch
-
-
-vaccination view
-vacc_view_pos
-
-### Independent Variables
- receive_i_fr_dr   
-receive_i_fr_pers      
-receive_i_fr_tv    
-receive_i_fr_onlnet    
-receive_i_fr_onlgroup 
-
-age 
-gender 
-race_white   
-race_black    
-race_nat      
-race_asian 
-hispanic
-college
-
-
-
-
-
-I received a $7,193 grant from the Summer Institute of Computational Social
-Science to conduct research on network activation. Because I am co-PI on this
-grant with my colleague Nicolas Legewie (University of Pennsylvania,
-Humboldt-University of Berlin), I established permissions early-on in our
-planning process to introduce and ‘own’ a few specific survey questions for
-independent research on network versus non-network information activation.
-
-The majority of this survey is a replication of the survey conducted in Mario
-Small’s Book, Someone to Talk To (2017). We aim to expand on Small’s finding
-that people draw on much broader sources than “important people” for support by
-investigating how this theory of weak-tie support holds for different support
-types (instrumental, emotional, and informational support; (see House et al.
-1988)).
-
-We aim to conduct surveys with 900 participants. The sample population for our
-main survey are adult, non-institutionalized US residents. To adjust for the
-non-representative sample provided by Amazon Mechanical Turk where we will host
-the survey, we will use post-stratification weights based on the demographic
-profile of each respondent (Wang et al. 2015).
+The data used for this research project are based on original survey data
+sampled between `r format( min(rain$date), '%B %d, %Y')`  through 
+`r format(max(rain$date), '%B %d, %Y')`. This survey was hosted on Qualtrics and
+participants were paid and recruited using Amazon Turk (MTurk). The total valid
+survey responses (n = `r nrow(rain)`) were selected from a total of 1,066
+respondents; some responses were disqualified due to a few factors such as
+detected usage of a VPN, random answer clicking (determined by illogical
+responses), poor quality typed responses (e.g. social network alters
+consistently named random nouns), or taking the survey more than once. The same
+is slighted gender unbalanced, slightly skewing towards a male sample. For the
+respondents who provided their zipcode (p = 
+`r round(nrow(rain[!is.na(rain$region),]) / nrow(rain), 2)`), the 
+sample is quite balanced with a slight skew towards MTurkers in the South (p = 
+`r round(nrow(rain[rain$region == 'South',]) / nrow(rain), 2)`). 
+The survey took an average of `r round(mean(rain$duration), 2)` minutes with a 
+standard deviation of `r round(sd(rain$duration), 2)` minutes. The shortest 
+valid survey took `r round(min(rain$duration), 2)` minutes and the longest took 
+`r round(max(rain$duration), 2)` minutes. Participants were paid \$6.00 for their 
+time after Amazon administrative fees, funded by a Grant awarded to Kelsey E.
+Gonzalez and Nicolas Legewie by the Summer Institute in Computational Social
+Science and the Russell Sage Foundation. The main portion of this survey
+replicates the book, Someone to Talk To [@smallSomeoneTalk2017] by expandingon
+Small’s finding that people draw on much broader sources than “important people”
+for support by segregating weak-tie social support into instrumental, emotional,
+and informational support (see House et al. 1988)). The latter part of the
+survey focuses on resource activation for the specific case-study of information
+during the Covid-19 pandemic and is analyzed in this paper.
 
 
 ```{r desc-table-1}
@@ -299,29 +297,158 @@ datasummary(formula =
   data = desc_table,
   fmt = '%.2f',
   title = 'Descriptive Statistics for Dichotomous and Numeric Variables',
-  notes =c(glue("Notes: {nrow(rain)} Surveyed, Conducted {format( min(rain$date), '%B %d')} through {format(max(rain$date), '%B %d')}, 2021.")))
+  notes =c(glue("Notes: {nrow(rain)} Surveyed, Conducted {format( min(rain$date), '%B %d')} through {format(max(rain$date), '%B %d')}, 2021.")),
+  output = "kableExtra") %>% 
+  kable_styling(latex_options = c("hold_position", "striped"))
+
 ```
 
+## Measures
+
+###  Sought Information
+There are multiple dependent variables of interest for this paper. The first
+variable is a dichotomous indicator of whether someone intentionally sought out
+information about Covid-19 vaccinations. The survey asked, "And how about you 
+yourself intentionally looking for information about a Covid-19 vaccine? Such 
+information can include things such as advice, clarification, facts, and
+experiences". About `r print_perc(rain$int_sought)` ($\widehat{p}$)
+of respondents had intentionally sought out information about Covid-19 
+vaccinations (95% Confidence Interval = \{`r conf_int_prop(rain$int_sought)`\}).
+
+Further dependent variables segment the above question into multiple options;
+"How did you look for information about the Covid-19 vaccine?". Respondents were
+posed with 5 responses and 'other', of which they could select multiple. The
+largest proportion, `r print_perc(rain$int_sought_fr_dr)`, asked their 
+'doctor or another health professional' (95% Confidence Interval = 
+\{`r conf_int_prop(rain$int_sought_fr_dr)`\}).
+About `r print_perc(rain$int_sought_fr_pers)`  said they asked 'a person 
+like friend, neighbor, or family member that [they] know' (95% Confidence 
+Interval = \{`r conf_int_prop(rain$int_sought_fr_pers)`\}). An additional
+`r print_perc(rain$int_sought_fr_onlsearch)` searched 'for [their] question 
+using an online search engine such as Google or Bing' (95% Confidence Interval 
+= \{`r conf_int_prop(rain$int_sought_fr_onlsearch)`\}). About a quarter of the 
+sample, `r print_perc(rain$int_sought_fr_onlgroup)`, 'posted queries in an 
+online discussion group, listserve, or other online forum like a Facebook Group 
+or Subreddit' (95% Confidence Interval = \{`r conf_int_prop(rain$int_sought_fr_onlgroup)`\}).
+And finally, `r print_perc(rain$int_sought_fr_onlnet)` of the sample 'posted queries 
+on a social networking site such as Facebook timeline, Twitter status update, or 
+Linkedin' (95% Confidence Interval = \{`r conf_int_prop(rain$int_sought_fr_onlnet)`\}).
+Much of the question wording and the specific categories of search were inspired
+by ICPSR project 37220 [@scanlon19].
 
 ```{r desc-table-2}
 #| results = "asis"
 
 
-datasummary(formula = ((`Income` = income)+  
+datasummary(formula = (
+  # (`Income` = income)+  
                          (`Gender` = gender)+  
                          (`Highest Education Level` = educ) + 
                          (`Plan to be Vaccinated if not` = vacc_status_future)  +
-                         (`Found Info Sought Useful` = int_sought_useful)) ~ N + Percent(), 
+                         (`Found Info Sought Useful` = int_sought_useful) +
+                         (`Census Region` = region)) ~ N + Percent(), 
  data = rain,
    fmt = '%.2f',
   title = 'Descriptive Statistics for Categorical Variables',
  notes =c(glue("Notes: {nrow(rain)} Surveyed, Conducted {format( min(rain$date), '%B %d')} through {format(max(rain$date), '%B %d')}, 2021.")),
  output = "kableExtra") %>%
-  kable_styling(latex_options = 'HOLD_position')
+  kable_styling(latex_options = c("hold_position", "striped"))
 
 # TODO reorder factors in categorical table
 
 ```
+
+### Vaccination Outlook
+
+```{r}
+vacc_status_freq <- rain[!is.na(rain$vacc_status_future),] %>% 
+  group_by(col = vacc_status_future) %>% 
+  summarise(n = n()) %>%
+  mutate(n = n / sum(n))
+```
+Another Dependent variable for this analysis is a dichotomous variable
+indicating whether the respondent has received a vaccination against Covid-19 or
+plans to. For this survey, the number of doses were unimportant and actually
+having already received the dose were irrelevant to the research question. This
+variable instead focuses on intent or opinion about the vaccine. About 
+`r print_perc(rain$vacc_view_pos)` have a positive view about the vaccine. This
+construct is made through the combination of  two survey items. The first item
+is actual vaccination status, obtained through the question 'Did you receive a
+Covid-19 vaccine?'. `r print_perc(rain$vacc_status)` of the sample said that
+they had indeed received a vaccination (95% Confidence Interval = \{
+`r conf_int_prop(rain$vacc_status)`\}). As the national vaccination rate is
+closer to 55% (CITE), this indicates some bias in our sample that must be
+acknowledged: either MTurkers are more likely to be vaccinated that the normal
+population (sampling bias) or there is some conformity bias in the responses
+causing survey takers to provide false answers. The second survey item that
+contributes to 'Vaccination Outlook' was only given to those who had not
+responded 'yes' to the to their vaccination status. These respondents were asked 'Do you
+plan to receive a vaccine for the prevention of the Covid-19 virus?'. Of those
+who were asked this question (n = `r nrow(rain[!is.na(rain$vacc_status_future),])`),
+`r label_percent()(filter(vacc_status_freq, col == 'Definitely yes') %>% pull(n))`
+said they were 'definitely yes' getting the vaccine; 
+`r label_percent()(filter(vacc_status_freq, col == 'Probably yes') %>% pull(n))` 
+said they were 'probably yes' going to receive vaccine. The rest of the sample was more unsure: 
+`r label_percent()(filter(vacc_status_freq, col == 'Might or might not') %>% pull(n))`
+said they 'Might or might not', 
+`r label_percent()(filter(vacc_status_freq, col == 'Probably not') %>% pull(n))`
+said 'Probably not', and finally
+`r label_percent()(filter(vacc_status_freq, col == 'Definitely not') %>% pull(n))`
+said they would 'definitely not' receive the vaccine. The variable 'Vaccination
+Outlook' indicates their either the respondent received a Covid-19 vaccine or
+either probably or definitely will in the future.
+
+
+### Independent Variables
+The first independent variables used in this analysis are based on the question, 
+'In the past 12 months, without searching for it, did you receive information
+about the Covid-19 vaccine from … (check all sources you received information
+from)'. This differs from the 'How did you look for information' question above
+because it is based on passive reception of information. The largest proportion
+of respondents had received information from a person like friend, neighbor, or
+family member that [they] know ($\widehat{p}$ = `r print_perc(rain$receive_i_fr_pers)`
+). Respondents also commonly received information from a television news channel
+or a newspaper, about `r print_perc(rain$receive_i_fr_tv)` of the sample.
+`r print_perc(rain$receive_i_fr_dr)` of the sample had received information from
+their doctor or other health professional while `r print_perc(rain$receive_i_fr_onlnet)` 
+received information from a social networking site such as Facebook timeline,
+Twitter status update, or linkedin. Finally, the lowest proportion of the sample
+had received information from an online discussion group, listserve, or other
+online forum like a Facebook group or subreddit 
+($\widehat{p}$ = `r print_perc(rain$receive_i_fr_onlgroup)`).
+
+We also asked various demographic questions to understand our sample. The 
+average age of our sample was `r round(mean(rain$age, na.rm = T), 2)`. 
+Our sample was `r label_percent()(nrow(filter(rain, gender == "Female")) / nrow(rain))`
+female, and `r label_percent()(nrow(filter(rain, gender == "Male")) / nrow(rain))`
+male. The sample is diverse racially though some ethnic groups are under
+represented compared to national averages. Race was evaluated using the
+question, 'What is your race? If you are "mixed race", select all that apply.'
+Because of the multi-selection question, each variable is dichotomous and
+proportions are shown. `r print_perc(rain$race_white)` of the sample claimed
+they were 'White', `r print_perc(rain$race_black)` claimed to be 'Black or
+African American', `r print_perc(rain$race_nat)` chose 'American Indian or
+Alaskan Native', `r print_perc(rain$race_asian)` selected 'Asian', and finally 
+when asked ' Are you Hispanic, Latino/a/x, or Latin American Origin?', 
+`r print_perc(rain$hispanic)` selected 'Yes'. Respondents were also asked to 
+select the  highest level of education that you have completed. Based on the 
+breakdown between 'Less than high school', 'High school graduate', 'Some college',
+'Associate's or Technical degree', 'Bachelor's degree', and 'Graduate or 
+professional degree',  `r print_perc(rain$college)` of the sample were classified
+to have a College-level education (Associate's degree or above). 
+
+
+My analytic strategy proceeds in four steps. In Tables X & Y, I present descriptive
+statistics for all study variables, including variable ranges, means, and standard
+deviations. 
+
+
+In Table 3, I fit a model of state mobility scores using robust regression with the M estimator and iterated re-weighted least squares (IWLS) to downweight the influence of outliers (Jorgenson 2007; Venables and Ripley 2002). Model
+1 regresses state mobility scores on dummy variables for week. This model tests
+whether mobility scores vary across the 8-week study period. We use dummy variables for week to capture thresholds in the association between week and mobility.
+Model 2 adjusts for state religiosity, median age, percent black, the unemployment
+rate, population density, and the mobility lag. This model tests whether state religiosity is associated with state mobility scores net of state demographic characteristics
+
 
 
 ```{r clean_before_reg}
@@ -346,29 +473,29 @@ rain <- rain %>%
                   race_black,
                   race_nat,
                   race_asian, 
-                  college), ~ factor(.x, levels = c(1, 0))))
+                  college), ~ factor(.x, levels = c(0, 1))))
 
 regression_labels = c(
-  'receive_i_fr_dr0' = 'Received Info, Doctor',
-  'receive_i_fr_pers0' = 'Received Info, Person',
-  'receive_i_fr_tv0' = 'Received Info, News',
-  'receive_i_fr_onlnet0' = 'Received Info, Social Networking Site',
-  'receive_i_fr_onlgroup0' = 'Received Info, Online Forum',
-  'int_sought0' = 'Sought Info',
-  'int_sought_fr_dr0' = 'Sought Info, Doctor',
-  'int_sought_fr_pers0' = 'Sought Info, Person',
-  'int_sought_fr_onlnet0' = 'Sought Info, Social Networking Site',
-  'int_sought_fr_onlgroup0' = 'Sought Info, Online Forum',
-  'int_sought_fr_onlsearch0' = 'Sought Info, Online Search',
+  'receive_i_fr_dr1' = 'Received Info, Doctor',
+  'receive_i_fr_pers1' = 'Received Info, Person',
+  'receive_i_fr_tv1' = 'Received Info, News',
+  'receive_i_fr_onlnet1' = 'Received Info, Social Networking Site',
+  'receive_i_fr_onlgroup1' = 'Received Info, Online Forum',
+  'int_sought1' = 'Sought Info',
+  'int_sought_fr_dr1' = 'Sought Info, Doctor',
+  'int_sought_fr_pers1' = 'Sought Info, Person',
+  'int_sought_fr_onlnet1' = 'Sought Info, Social Networking Site',
+  'int_sought_fr_onlgroup1' = 'Sought Info, Online Forum',
+  'int_sought_fr_onlsearch1' = 'Sought Info, Online Search',
   'age' = 'Age',
   'gender=Male' = 'Gender, Male',
   'gender=Other' = 'Gender, Other',
-  'college0' = 'Some College +',
-  'race_white0' = 'White',
-  'race_black0' = 'Black',
-  'race_nat0' = 'Native American',
-  'race_asian0' = 'Asian',
-  'hispanic0' = 'Hispanic or Latino/x')
+  'college1' = 'Some College +',
+  'race_white1' = 'White',
+  'race_black1' = 'Black',
+  'race_nat1' = 'Native American',
+  'race_asian1' = 'Asian',
+  'hispanic1' = 'Hispanic or Latino/x')
 ```
 
 
@@ -409,16 +536,29 @@ mod1 <- glm(formula = int_sought ~
 # sjPlot::plot_model(m, type = "pred", terms = "receive_i_fr_onlgroup")
 
 
+
+# mod1 = list(mod1)
+
+
+# side_by_side(mod1, 
+#              gof_omit = 'AIC',
+#              title = 'What predicts someone intentionally searched for information',
+#             coef_map = regression_labels,
+#             notes = 'Exponentiated Coefficients',
+#             exponentiate = TRUE,
+#             output = "kableExtra") %>%
+#   kable_styling(latex_options = c("HOLD_position", "striped"))
+
+
 modelsummary(mod1,
-            gof_omit = 'AIC',
-            # stars = TRUE,
-            estimate = "{estimate}{stars}",
+            gof_omit = 'AIC', statistic = NULL,
+            estimate = "{estimate}{stars} ({std.error})",
             title = 'What predicts someone intentionally searched for information',
             coef_map = regression_labels,
             notes = 'Exponentiated Coefficients',
             exponentiate = TRUE,
  output = "kableExtra") %>%
-  kable_styling(latex_options = 'HOLD_position')
+  kable_styling(latex_options = c("HOLD_position", "striped"))
 
 ```
 
@@ -456,17 +596,6 @@ plot_summs(mod1,
 \newpage  
 
 # What is associated with using different kinds of search vehicles?
-
-
-Q172 How did you look for information about the Covid-19 vaccine?
-
-*	Asking a person like friend, neighbor, or family member that I know  
-*	Asking my doctor or another health professional  
-*	Posted queries in an online discussion group, listserve, or other online forum like a Facebook Group or Subreddit  
-*	Posted queries on a social networking site such as Facebook timeline, Twitter status update, or Linkedin  
-*	Searched for my question using an online search engine such as Google or Bing   
-*	Other ________________________________________________
-
 
 
 ```{r model2-table}
@@ -510,16 +639,40 @@ part2_models[['Online Search']] <- glm(formula = int_sought_fr_onlsearch ~
          data = rain, family = binomial)
 
 modelsummary(part2_models,
-             estimate = "{estimate}{stars}",
+             align="llllll",
+             statistic = NULL,
+            estimate = "{estimate}{stars}",
             gof_omit = 'AIC',
             coef_map = regression_labels,
             notes = 'Note: Exponentiated Coefficients',
             title = 'What predicts someone intentionally searched for information, by vehicle of information search',
             exponentiate = TRUE,
- output = "kableExtra") %>%
-  kable_styling(latex_options = 'HOLD_position')
+            output = "kableExtra") %>%
+  kable_styling(latex_options = c("scale_down", "HOLD_position", "striped"))  %>%
+  add_header_above(c(" " = 1, "Dependent Variable" = 5))
 
-# TODO ADD IN N To TABLE
+
+
+# 
+# 
+# 
+# 
+# side_by_side(part2_models, 
+#              gof_omit = 'AIC',
+#             coef_map = regression_labels,
+#             notes = 'Note: Exponentiated Coefficients',
+#             title = 'What predicts someone intentionally searched for information, by vehicle of information search',
+#             exponentiate = TRUE,
+#             output = "kableExtra") %>%
+#   kable_styling(latex_options = c("HOLD_position", "striped")) %>% 
+#   add_header_above(c(" ", 
+#                      "Person" = 2,
+#                      "Doctor" = 2, 
+#                      "Online Forum" = 2,
+#                      "Social Networking\nSite" = 2,
+#                      "Online Search"  = 2)) %>%
+#   add_header_above(c(" " = 1, "Dependent Variable" = 10)) %>%
+#   kableExtra::landscape()
 
 
 ```
@@ -551,16 +704,29 @@ mod3 <- glm(formula = vacc_view_pos ~ receive_i_fr_dr +
            college,  
          data = rain, family = binomial)
 
+# 
+# mod3 = list(mod3)
+# 
+# 
+# side_by_side(mod3, 
+#              gof_omit = 'AIC',
+#             title = 'Does receiving or searching for information predict vaccination status?',
+#             notes = 'Note: Exponentiated Coefficients',
+#             coef_map = regression_labels,
+#             exponentiate = TRUE,
+#             output = "kableExtra") %>%
+#   kable_styling(latex_options = c("HOLD_position", "striped"))
+#
 
 modelsummary(mod3,
-            gof_omit = 'AIC',
-            estimate = "{estimate}{stars}",
+            gof_omit = 'AIC', statistic = NULL,
+            estimate = "{estimate}{stars} ({std.error})",
             title = 'Does receiving or searching for information predict vaccination status?',
             notes = 'Note: Exponentiated Coefficients',
             coef_map = regression_labels,
             exponentiate = TRUE,
- output = "kableExtra") %>%
-  kable_styling(latex_options = 'HOLD_position')
+            output = "kableExtra") %>%
+  kable_styling(latex_options = c("HOLD_position", "striped"))
 ```
 
 
@@ -585,14 +751,14 @@ plot_summs(mod3,
              'Age' = 'age',
              'Gender, Male' = 'gender=Male',
              'Gender, Other' = 'gender=Other',
-             'Some College +' = 'college',
+             "Associate's Deg or above" = 'college',
              'White' = 'race_white',
              'Black' = 'race_black',
              'Native American' = 'race_nat',
              'Asian' = 'race_asian',
              'Hispanic or Latino/x' = 'hispanic'),
            robust = TRUE) +
-  labs(title = 'Does receiving or searching for information predict vaccination status?', 
+  labs(title = 'Does receiving or searching for information predict vaccination sentiment?', 
        caption = 'Coefficients Scaled and robust') +
   theme_diss()
 
@@ -604,11 +770,22 @@ plot_summs(mod3,
 # sjPlot::plot_model(m, type = "pred", terms = "college") 
 ```
 
-# Bibliography
 
+\newpage
+# References {-}
+
+<div id="refs"></div>
+
+\newpage
 # Appendix 1: Survey Questions
 
+
+
+-------------------------------------------------   
+
 *Q181*: Now, we're going to transition a bit to ask you about the information you received during the Covid-19 pandemic.
+
+-------------------------------------------------   
 
 *Q170*: In the past 12 months, without searching for it, did you receive information about the Covid-19 vaccine from … (check all sources you received information from)  
 
@@ -617,12 +794,17 @@ plot_summs(mod3,
 *	From television news channel or the newspaper?  (10) 
 *	From an online discussion group, listserve, or other online forum including a Facebook group or subreddit?  (11) 
 *	From a social networking site such as Facebook timeline, Twitter status update, or linkedin?  (12) 
-*	Other  (13) ________________________________________________
+*	Other  (13) _______
+
+
+-------------------------------------------------   
 
 *Q171*: And how about you yourself intentionally looking for information about a Covid-19 vaccine? Such information can include things such as advice, clarification, facts, and experiences. 
 
 *	Yes  (4) 
 *	No  (5) 
+
+-------------------------------------------------   
 
 *Q172*: How did you look for information about the Covid-19 vaccine?  
 
@@ -631,12 +813,14 @@ plot_summs(mod3,
 *	Posted queries in an online discussion group, listserve, or other online forum like a Facebook Group or Subreddit  (5) 
 *	Posted queries on a social networking site such as Facebook timeline, Twitter status update, or Linkedin  (6) 
 *	Searched for my question using an online search engine such as Google or Bing  (7) 
-*	Other  (8) ________________________________________________
+*	Other  (8) ___________
+
+-------------------------------------------------   
 
 *Q173*: What sort of information did you search for? 
  Separate different topics with a comma or semi-colon. 
-___________
-
+ 
+-------------------------------------------------   
 
 *Q174*: How useful was the information you found?  
 
@@ -646,16 +830,22 @@ ___________
 *	Slightly useful  (25) 
 *	Not at all useful  (26) 
 
+-------------------------------------------------   
+
 *Q175*: Did the information you learned affect your decision to get vaccinated against Covid-19?  
 
 *	Yes  (39) 
 *	No  (40) 
+
+-------------------------------------------------   
 
 *Q179*: Did you receive a Covid-19 vaccine?  
 
 *	Yes  (9) 
 *	No  (10) 
 *	I'm unsure or would not like to respond  (11) 
+
+-------------------------------------------------   
 
 *Q180*: Do you plan to receive a vaccine for the prevention of the Covid-19 virus?  
 
@@ -666,27 +856,34 @@ ___________
 *	Definitely yes  (13) 
 *	I would not like to respond  (14) 
 
+-------------------------------------------------   
 
 *gender*: What is your gender?  
 
 *	Male  (1) 
 *	Female  (2) 
-*	Other  (3) ________________________________________________
+*	Other  (3) ________________
 *	Prefer not to say  (4) 
+
+-------------------------------------------------   
 
 *hispanic*: Are you Hispanic, Latino/a/x, or Latin American Origin?  
 
 *	Yes  (1) 
 *	No  (2) 
 
+-------------------------------------------------   
+
 *race*: What is your race? If you are "mixed race", select all that apply.  
 
 *	White  (1) 
 *	Black or African American  (2) 
 *	American Indian or Alaskan Native  (3) 
-*	Asian (please specify):  (4) ________________________________________________
-*	Other (please specify):  (5) ________________________________________________
+*	Asian (please specify):  (4) _______
+*	Other (please specify):  (5) _______
 *	Prefer not to say  (6) 
+
+-------------------------------------------------   
 
 *educ*: What is the highest level of education that you have completed?   
 
@@ -696,6 +893,8 @@ ___________
 *	Associate's or Technical degree  (4) 
 *	Bachelor's degree  (5) 
 *	Graduate or professional degree  (6) 
+
+-------------------------------------------------   
 
 *income*: We would be interested to know roughly what your total household income
 before taxes is. We mean income from all sources, including welfare, stock
@@ -716,7 +915,6 @@ dividends, other household members' income, etc. In 2020, in which bracket did y
 *	\$150,000 or over  (13) 
 *	Don't know  (14) 
 
+-------------------------------------------------   
+
 *age*: What is your age? (in years)  
-
-________________________________________________________________
-

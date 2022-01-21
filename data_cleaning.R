@@ -28,8 +28,13 @@ to_factor <- c('int_sought',
                'employment',
                'hispanic')
 
+zips <- vroom::vroom(here('data', 'all_us_zipcodes.csv')) %>% 
+  left_join(vroom::vroom(here('data', 'us census bureau regions and divisions.csv')), by = c('state' = 'State Code'))  %>% 
+  select(zipcode = code, state, region = Region, division = Division)
+
 clean_data <- clean_data %>% 
   anti_join(mturk_batches, by= c("MID" = "WorkerId")) %>% 
+  filter(ResponseId != 'R_3FXzD9yMC1LpHHd') %>% 
   select(ResponseId, MID, EndDate,
          receive_i_fr = Q170,             
          receive_i_fr_oth = Q170_13_TEXT,
@@ -41,8 +46,9 @@ clean_data <- clean_data %>%
          int_sought_affect = Q175,            
          vacc_status = Q179,             
          vacc_status_future = Q180,
-         age, gender, race, race_5_TEXT, hispanic, educ, income, employment) %>% 
-  
+         age, gender, race, race_5_TEXT, hispanic, educ, income, employment, zipcode,
+         duration) %>% 
+  left_join(zips, by = 'zipcode') %>% 
   # Clean up variable types 
   mutate(across(to_factor, as_factor),
          vacc_status = case_when(vacc_status == "Yes" ~ TRUE,
@@ -77,10 +83,10 @@ clean_data <- clean_data %>%
   
   # educ, cleaning
   mutate(college = case_when(educ %in% c('Graduate or professional degree', 
-                                         "Bachelor's degree",
-                                         "Associate's or Technical degree",
-                                         'Some college') ~ TRUE,
-                             educ %in% c('High school graduate', 
+                                         "Bachelor's degree") ~ TRUE,
+                             educ %in% c("Associate's or Technical degree",
+                                         'Some college',
+                                         'High school graduate', 
                                          "Less than high school") ~ FALSE)) %>% 
   
   # received information from,  cleaning
@@ -102,6 +108,7 @@ clean_data <- clean_data %>%
          across(int_sought_fr_pers:int_sought_fr_onlsearch, ~ replace_na(.x, FALSE))) %>% 
   
   select(ResponseId, MID, EndDate, age, gender, hispanic, starts_with("race_"), -race_5_TEXT, educ, college, income, employment,
+         region, division, duration,
          receive_i_fr_dr, receive_i_fr_pers, receive_i_fr_tv, 
          receive_i_fr_onlnet, receive_i_fr_onlgroup, receive_i_fr_other,
          int_sought,       
@@ -119,7 +126,8 @@ clean_data <- clean_data %>%
   mutate(across(receive_i_fr_dr:receive_i_fr_onlgroup, ~ifelse(.x == TRUE, 1, 0)), 
          receive_i = max(receive_i_fr_dr:receive_i_fr_onlgroup),
          receive_i = ifelse(receive_i_fr_other != '', 1, receive_i),
-         across(receive_i_fr_dr:receive_i_fr_onlgroup, as.logical)) 
+         across(receive_i_fr_dr:receive_i_fr_onlgroup, as.logical),
+         duration = duration / 60) 
 
 
 change_to_dich <- c(
