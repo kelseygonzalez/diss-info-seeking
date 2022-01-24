@@ -40,7 +40,7 @@ knitr::opts_chunk$set(echo = FALSE,
 
 
 if (!require("pacman")) install.packages("pacman")
-pacman::p_load(tidyverse, glue, extrafont, here, jtools, 
+pacman::p_load(tidyverse, glue, extrafont, here, jtools, psych,
                modelsummary, showtext, thematic, kableExtra, scales)
 
 
@@ -120,20 +120,21 @@ print_perc <- function(var){
 # Abstract 
 How do individuals perform information search, and what factors help them decide
 which information search vehicle to utilize, such as interpersonal networks or
-online tools, I investigate the above question  using individual survey data of
-934 Adults in the United States and find that 
-
-
-
-Knowing that Google
-trends data only encompasses a small portion of the information-seeking done by
-modern humans, it is important to investigate what leads individuals to search
-for a question online using a search engine versus more traditional means of
-information gathering, such as network activation (asking someone in their
-social network for informational support). I predict that few people will
+online tools, I investigate the above question using individual survey data of
+934 Adults in the United States and find that X and Y. Furthermore, this paper
+demonstrates that searching for a question online using a search engine or
+social network was more common than traditional means of information gathering,
+such as network activation (asking someone in their social network for
+informational support). Using X and Y theory I predict that that few people will
 activate their social network for informational support in my chosen case of
-Covid-19 vaccinations because of the social cost of doing so and that the
-majority will have utilized an online search engine.
+Covid-19 vaccinations because of the social cost of doing so but fail to find
+evidence for this thesis. I also investigate which information channels are
+associated with vaccinations against the virus, and find that social netwokring
+sites are associated with lower rates. I also find important ethnocracial
+differences in information search vehicles utilization and vaccination
+reception.
+
+<!-- TODO this needs a lot of work but its a start -->
 
 
 # Intro
@@ -208,7 +209,8 @@ information search may feel like they have no network support, leading to
 feelings of network isolation with major implications for mental health 
 [@thoitsMechanismsLinkingSocial2011]
 
-## section B: Research Questions
+Research Questions
+
 * How do computer-mediated or interpersonal network information-seeking strategies vary across populations? 
 * What factors lead people to perform health information search online versus among social network ties? 
 * How does the utilization of social networks, search engines, and social media as vary in the case of searching for information on the Covid-19 vaccine? 
@@ -448,18 +450,23 @@ fit a series of Binomial Generalized Linear Models [@venables2002a]. In Table \@
 whether someone sought information about Covid-19 using their sources of
 information ('Received info') as well as various demographic variables such as
 age, education level and race. Figure \@ref(fig:plot-model-1) then illustrates
-the relationship between the coefficients and information seeking.^[Figures in this paper were all created using the `r` packages jtools [@jtools] and ggplot2 [@wickham_etal; @wickham11] ].
-In Table \@ref(tab:table-model-2), I disaggregate information seeking behaviors
-by investigating the difference in proportions of each of the vehicles in 
-\@ref(tab:model-2-chi2) and then by modelling a series of logistic regressions 
-that predict the 5 different avenues of seeking information about Covid-19: 
-from another person, from a doctor, on an online forum, on a social networking 
-site, or using an online search tool.
+the relationship between the coefficients and information seeking.^[Figures in 
+this paper were all created using the `r` packages jtools [@jtools] and ggplot2 [@wickham_etal; @wickham11] ].
+In Table \@ref(tab:model-2-phi) I disaggregate information seeking behaviors by
+investigating the difference in proportions of each of the 5 different avenues
+of seeking information about Covid-19: from another person, from a doctor, on an
+online forum, on a social networking site, or using an online search tool. I
+investigate these differences through a phi coefficient [@warrens08], otherwise
+known as a mean square contingency coefficient which is used to investigate the
+degree of association between two binary variables. ^[To calculate the Phi
+Coefficient, I utilize the Psych `r` package [@psych] ] I then investiage the
+associations between my predictors and the 5 information search vehicles by
+modelling a series of logistic regressions in Table \@ref(tab:table-model-2).
 Finally, in Table \@ref(tab:table-model-3), I investigate whether there is a
 relationship between information receiving and information seeking behaviors and
 the choice to get vaccinated against Covid-19 through a logistic regression
-model predicting Vaccination Outlook.  Figure \@ref(fig:plot-model-3) then illustrates
-the relationship between the coefficients and vaccination outlook. 
+model predicting Vaccination Outlook.  Figure \@ref(fig:plot-model-3) then
+illustrates the relationship between the coefficients and vaccination outlook.
 
 # Results
 ```{r clean_before_reg}
@@ -626,49 +633,36 @@ the relationship between the coefficients and information seeking.
 
 
 ## Information Search Vehicles
-```{r model-2-chi2}
-#| results = "asis"
 
-chi <- rain %>% 
+```{r model-2-phi}
+phi <- rain %>% 
   select(pers = int_sought_fr_pers,
          dr = int_sought_fr_dr,
          forum = int_sought_fr_onlgroup,
          net = int_sought_fr_onlnet,
          search = int_sought_fr_onlsearch)
   
-find_p <- function(x, y){
+find_phi <- function(x, y){
   tab <- table(x, y)
-  as.numeric(chisq.test(tab)["p.value"])
+  phi(tab, digits = 3)
 }
 
 
-chi_squared_tests <- 
-tribble(~col, ~Person, ~Dr, ~`Online Forum`, ~`Online Network`, ~`Online Search`,
-'Person',   NA, find_p(chi$pers, chi$dr), find_p(chi$pers, chi$forum), find_p(chi$pers, chi$net), find_p(chi$pers, chi$search),
-'Dr',     NA, NA, find_p(chi$dr, chi$forum), find_p(chi$dr, chi$net), find_p(chi$dr, chi$search),
-'Online Forum',  NA, NA, NA, find_p(chi$forum, chi$net), find_p(chi$forum, chi$search),
-'Online Network',    NA, NA,NA, NA, find_p(chi$net, chi$search),
-'Online Search', NA, NA, NA, NA, NA)
+phi_squared_tests <- 
+  tribble(~col, ~Person, ~Dr, ~`Online Forum`, ~`Social Networking Site`, ~`Online Search`,
+          'Person',   NA_complex_, find_phi(phi$pers, phi$dr), find_phi(phi$pers, phi$forum), find_phi(phi$pers, phi$net), find_phi(phi$pers, phi$search),
+          'Dr',     NA, NA, find_phi(phi$dr, phi$forum), find_phi(phi$dr, phi$net), find_phi(phi$dr, phi$search),
+          'Online Forum',  NA, NA, NA, find_phi(phi$forum, phi$net), find_phi(phi$forum, phi$search),
+          'Social Networking Site',    NA, NA,NA, NA, find_phi(phi$net, phi$search),
+          'Online Search', NA, NA, NA, NA, NA)
 
-
-chi_squared_tests %>%
-  mutate(across(where(is.numeric), ~ sprintf("%.3f", round(., digits = 3)))) %>% 
-  mutate(Person = cell_spec(Person, format = "html", bold = Person < 0.05),
-       Dr = cell_spec(Dr, format = "html", bold = Dr < 0.05),
-       `Online Forum` = cell_spec(`Online Forum`, format = "html", bold = `Online Forum` < 0.05),
-       `Online Network` = cell_spec(`Online Network`, format = "html", bold = `Online Network` < 0.05),
-       `Online Search` = cell_spec(`Online Search`, format = "html", bold = `Online Search` < 0.05)) %>% 
-  kable(., escape = FALSE,
-      digits=3,  
-      caption = "Pearson's $\\chi^2$ test with Yates' continuity
-	correction  between each Information Search Vehicle",
-      col.names = c("",'Person', 'Dr', 'Online Forum', 'Online Network', 'Online Search')      ) %>% 
+kable(phi_squared_tests, digits=3,  
+      caption = "Phi Coefficient ($\\phi$) of binary association between each Information Search Vehicle",
+      col.names = c("",'Person', 'Dr', 'Online Forum', 'Social Networking Site', 'Online Search')) %>% 
   kable_styling(latex_options = c("hold_position", "striped"),
-                full_width = F) %>%
-  column_spec(column = 1, bold = T) %>% 
-  footnote(c("Bolded values are significant using $\\alpha = 0.05$, two-tailed test"))
-```
+                full_width = F) 
 
+```
 
 
 ```{r table-model-2}
@@ -758,23 +752,34 @@ modelsummary(part2_models,
 
 To further investigate how people search for information, I asked those who had
 sought information out intentionally, "How did you look for information about
-the Covid-19 vaccine?" Results are displayed in Table \@ref(tab:table-model-2).
-Because respondents could select as many responses as applicable, each response
-is recorded as a dichotomous variable and modeling using logistic regression.
+the Covid-19 vaccine?" Because respondents could select as many responses as
+applicable, each response is recorded as a dichotomous variable. I first
+investigate how each Information Search Vehicle are related to each other using
+the Phi Coefficient ($\\phi$) of binary association between each Information
+Search Vehicle pair. The Phi coefficient can be interpreted like a correlation
+coefficient, with numbers closer to -1 or positive one indicating a very strong
+relationship [@warrens08]. Table \@ref(tab:model-2-chi2) shows the results of
+these coefficients. Out of the five information search vehicles investigated,
+there is evidence that the vehicles are distinctly different concepts because
+most coefficients fall under 0.3, the general rule of thumb for correlation 
+coefficients to indicate a relationship. There does seem to be a relationship
+between Online Forums and Social Networking Sites, possibly due to an
+individual's propensity to use online networks over in-person networks. These
+coefficients indicate a weak relationship between any two vehicles of
+information search and and that respondents in my sample utilize each of these a
+little bit differently.
+
+Results of each logistic regression are displayed in Table \@ref(tab:table-model-2).
 Modeling each response as a separate formula is useful for interpretation, but
 there are important caveats: because each logistic regression is on a different
 scale, one must not compare the magnitude of coefficients between models. We
 can, however, use the direction and significance of the coefficients to draw
 conclusions about these different forms of information search vehicles.
 
-TODO interpret table \@ref(tab:model-2-chi2), the chi2 tests to see differences
-
-
-
-The first model predicts whether or not a respondent sought information
-intentionally about Covid-19 vaccinations by asking their doctor or another
-health professional. First and foremost, I find that those who received
-information about Covid-19 vaccinations were 
+The first model in Table \@ref(tab:table-model-2) predicts whether or not a
+respondent sought information intentionally about Covid-19 vaccinations by
+asking their doctor or another health professional. First and foremost, I find
+that those who received information about Covid-19 vaccinations were
 `r round(exp(part2_models$Doctor$coefficients[['receive_i_fr_dr1']]), 2)` times
 more likely to seek out more information from their doctor than those who had 
 not ( _p_ < 0.001). However, receiving information from other vehicles also 
