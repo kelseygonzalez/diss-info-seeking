@@ -143,13 +143,99 @@ Finally, I also aimed to uncover how the different fountains of information and
 information search vehicles hold real world consequences through their associations
 with Covid-19 vaccination rates and intentions. 
 
-# Intro
-It is unclear how individuals choose to search for information through the
-multimedia environment of the 21st century. Much of the research conducted in
-social networks and communication focus on senders, influencers, and persuasion
-strategies [@mertonManifestLatentFunctions1968] rather than on “the receiver as
-an active information seeker and processor."
-[@johnsonComprehensiveModelCancerRelated1993].
+# Intro 
+
+Information is all around us and permeates every facet of human society, from
+the hordes of data gathered during the internet age or passing gossip between
+friends. Human communication and human society are based on the circulation of
+information and knowledge. Information can be shared by others through
+information campaigns and consumed by an individual, called information push, or
+intentionally sought out by individuals, called information pull 
+[@cybenkoFoundationsInformationPush1999].
+
+Information is especially important given the prominent trends of
+misinformation, disinformation, and mistrust in traditional institutions
+[@starbird19; @kata10]. While no belief in false information can be thought of as
+harmless [@douglas21] some discredited theories such as 'vaccines cause autism'
+have major ramifications for both the individual and the social world that
+surrounds them. For example, a new found public resistance to vaccination
+against Measles by so-called 'anti-vaxxers' caused a 17% increase in rates
+worldwide in 2019. This increase killed  142,000 people, most of whom were
+children under the age of five [@givetash19]. However, even in the ever-evolving
+research agenda of misinformation, much of the research focuses on spaces where
+individual first come into contact with conspiracy theories or other information
+rather than what individuals do with the information they obtain
+[@johnsonOnlineCompetitionPro2020; @broniatowski_etal20]. 
+<!-- cite something else here -->
+
+The lack of research in this area makes it quite unclear how individuals choose
+to search for information through the multimedia environment of the 21st
+century. Even outside of the misinformation literature, much of the research
+conducted in social networks and communication focus on senders, influencers,
+and persuasion strategies [@mertonManifestLatentFunctions1968;
+@katzPersonalInfluencePart1955; @lazarsfeldPeopleChoice1944 ], rather than on
+“the receiver as an active information seeker and processor."   [@johnsonComprehensiveModelCancerRelated1993].
+
+<!-- TODO cleanup -->
+For this paper, I will use the case of Covid-19 vaccinations to explore the
+variation among information search vehicles. T
+
+Research Questions
+
+* How do computer-mediated or interpersonal network information-seeking strategies vary across populations? 
+* What factors lead people to perform health information search online versus among social network ties? 
+* How does the utilization of social networks, search engines, and social media as vary in the case of searching for information on the Covid-19 vaccine? 
+
+<!-- TODO  cleanup -->
+
+## subheading - how people search
+
+Active directed searching by individuals to obtain information is sparsely
+discussed in the sociological literature. Pejtersen
+[-@pejtersenDesignComputeraidedUsersystem1984], a scholar of library and
+information science, theorized that there are 5 strategies for searching for
+information. The most common strategy is browsing, where people follow leads
+based on associations without planning ahead. Another strategy is analytical,
+which includes an explicit consideration of all facets of the question to guide
+a search. The empirical method guides the search based on tactics that were
+successful in past research. The known site strategy is to go to the direct
+source of the information if known. And finally, the similarity method is to
+find information based on another similar question that already has an answer.
+These 5 strategies vary in their demands for prior knowledge, cognitive
+processing, memory, and time spent. While this theory is aimed at finding
+information in a library setting, scholars have extended the theory to other
+fields and validated the framework [@fidelHumanInformationInteraction2012]; the
+frame is a useful beginning point for my theories of information search through
+network activation or through computer-mediated communication.
+
+Some communication theorists ask why an answer to a question is sought in the
+first place. The Theory of Uncertainty Management
+[@brashersCommunicationUncertaintyManagement2001] professes that people search
+for information when their uncertainty around the subject leads to anxiety or
+other cognitive harms. The Theory of Motivated Information Management
+[@afifiTheoryMotivatedInformation2004; @afifiSeekingInformationSexual2006]
+extends the prior by adding that uncertainty itself is not the catalyst for
+information-search; rather, it is driven by a discrepancy between the current
+level of uncertainty on a subject and desired level of uncertainty.
+
+One way to find information is to activate network ties to find out information
+through a form of social support. Social support, while previously used
+interchangeably with the term social networks and social integration
+[@houseStructuresProcessesSocial1988], are the emotional, informational, and
+instrumental assistance functions performed between social ties and have strong
+and measurable association with health outcomes
+[@houseMeasuresConceptsSocial1985; @thoitsMechanismsLinkingSocial2011].
+Informational support is the process of seeking “help in defining,
+understanding, and coping with problematic events and include education, advice,
+or referral to another source of support” [@winemiller_etal93, p. 640].
+Brashers, a health communications researcher, defines informational support
+slightly differently, focusing on the exchange of information that “facilitates
+coping with life stresses… that may be exchanged among members of a support
+network” [-@brashersInformationSeekingAvoiding2002, p. 260] <!--  Both of these
+definitions provide important lenses for my question of how computer-mediated or
+interpersonal information-seeking strategies vary.--> If information is needed
+but there is no search for coping or deeper understanding of important matters,
+people are likely to choose to search online.
 
 Core discussion networks are the default lens to investigate network resources
 and social support in surveys. The underlying assumption is that individuals
@@ -169,7 +255,7 @@ informational support. I follow the definition of Cohen and Wills
 [-@cohenStressSocialSupport1985] and define informational support as “help in
 defining, understanding,  and coping with problematic events and include
 education, advice, or referral to another source of  support”
-[@winemillerMeasurementStrategiesSocial1993, p. 640].
+[@winemiller_etal93, p. 640].
 
 However, informational support can also be sought outside of the social network
 context, namely via computer-mediated information search tools such as the
@@ -186,18 +272,44 @@ status update online via Facebook or Twitter. The first two comprise what I call
 include in the survey; yet, it is a hybrid of social network activation and
 online search.
 
+From studies of mass communication, uses and gratifications theory (UGT)
+[@blumlerUsesMassCommunications1974; @tanMassCommunicationTheories1985] may also
+lend itself to theorizing why computer-mediated or interpersonal
+information-seeking strategies vary. UGT posits that users are not passive
+consumers of media and that people have an active role in choosing different
+sources of media based on their satisfaction of specific needs on an individual
+basis. UGT is based on Maslow’s [-@maslowTheoryHumanMotivation1943] hierarchy of
+needs and is compatible with Lazarsfeld and Katz’s theory of two-step flow
+[-@katzPersonalInfluencePart1955] because people can choose their media and the
+opinion leaders they follow. Modern-day theorists have extended UGT theory and
+classified the uses and gratifications of the internet and of social media.
+Stafford, Stafford, and Schkade [-@staffordDeterminingUsesGratifications2004]
+theorize that the internet provides gratification through useful content that
+meets expectations, gratification from purposeful navigating or random browsing
+as a process, and social gratification from forming and deepening social ties.
+Leung [-@leungGenerationalDifferencesContent2013] theorizes that social media is
+gratifying for users because it allows for venting of negative feelings,
+provides recognition, provides entertainment, promotes social affection, and
+fulfills cognitive needs. Adapting UGT to my own purposes, I theorize that
+informational support will be activated from network ties when the informational
+need is related to forming and deepening social ties but search will be
+conducted online when information is needed but an individual does not have an
+additional cognitive need to fill through social interaction. Alternative goals
+such as identity management or relational maintenance
+[@brashersInformationSeekingAvoiding2002] need to be balanced and will determine
+where search is conducted.
+
+<!-- connect above and below paragraph to flow together -->
+<!-- TODO  cleanup -->
+
 As online search or interaction also allows increased anonymity, no or lowered
 social cost, and the potential avoidance of embarrassment and other negative
 social interactions, I theorize that a majority of people who searched for
 information will have done so online.
 
-<!-- TODO add a hypothesis here -->
-
-For this paper, I will use the case of Covid-19 vaccinations to explore the
-variation among information search vehicles. There are theoretical reasons why
-individuals would choose to search for information among their network ties
-instead of online search. For instance, Rains
-[-@rainsCopingIllnessDigitally2018] finds that patients tend to search for
+there are theoretical reasons why individuals would choose to search for
+information among their network ties instead of online search. For instance,
+Rains [-@rainsCopingIllnessDigitally2018] finds that patients tend to search for
 technical information about an illness online but turn to their social network
 for experiential information from others facing similar circumstances in the
 case of cancer. Moreover, if an individual distrusts the medical establishment,
@@ -205,21 +317,13 @@ or popular media, they may be more likely to activate informational support
 among their social network or turn to online groups that validate their
 worldview [@bogersHowSocialAre2014].
 
-This research project is important because the vehicles used to search by people
-impacts the information they are exposed to. Given the large swaths of both
-misinformation and disinformation regarding Covid-19 [@mottaHowRightLeaningMedia2020; @pathakInfodemicsCOVID19Role2020; @shahsavariConspiracyTimeCorona2020] and
-the measurable impacts this misinformation has had on pandemic-related health
-behaviors, how we choose to search for information affects our own lives and the
-lives of others. Moreover, individuals who do not utilize social networks for
-information search may feel like they have no network support, leading to
-feelings of network isolation with major implications for mental health 
-[@thoitsMechanismsLinkingSocial2011]
+<!-- TODO add a hypothesis here -->
 
-Research Questions
 
-* How do computer-mediated or interpersonal network information-seeking strategies vary across populations? 
-* What factors lead people to perform health information search online versus among social network ties? 
-* How does the utilization of social networks, search engines, and social media as vary in the case of searching for information on the Covid-19 vaccine? 
+
+
+
+
 
 
 # Research Methodology
@@ -227,7 +331,7 @@ The data used for this research project are based on original survey data
 sampled between `r format( min(rain$date), '%B %d, %Y')`  through 
 `r format(max(rain$date), '%B %d, %Y')`. This survey was hosted on Qualtrics and
 participants were paid and recruited using Amazon Turk (MTurk). The total valid
-survey responses (n = `r nrow(rain)`) were selected from a total of 1,066
+survey responses (_n_ = `r nrow(rain)`) were selected from a total of 1,066
 respondents; some responses were disqualified due to a few factors such as
 detected usage of a VPN, random answer clicking (determined by illogical
 responses), poor quality typed responses (e.g. social network alters
@@ -244,7 +348,7 @@ valid survey took `r round(min(rain$duration), 2)` minutes and the longest took
 time after Amazon administrative fees, funded by a Grant awarded to Kelsey E.
 Gonzalez and Nicolas Legewie by the Summer Institute in Computational Social
 Science and the Russell Sage Foundation. The main portion of this survey
-replicates the book, Someone to Talk To [@smallSomeoneTalk2017] by expandingon
+replicates the book, Someone to Talk To [@smallSomeoneTalk2017] by expanding on
 Small’s finding that people draw on much broader sources than “important people”
 for support by segregating weak-tie social support into instrumental, emotional,
 and informational support (see House et al. 1988)). The latter part of the
@@ -1096,7 +1200,6 @@ Ipsum nunc aliquet bibendum enim facilisis gravida. Ac turpis egestas maecenas
 pharetra convallis posuere morbi leo. Id diam vel quam elementum pulvinar etiam.
 
 
-\newpage
 
 # Conclusion
 Previous research has greatly failed to distinguish between the activation of
@@ -1108,6 +1211,30 @@ information search vehicles hold real world consequences through their associati
 with Covid-19 vaccination rates and intentions. 
 
 
+The vaccines against the COVID-19 coronavirus prevent severe illness,
+hospitalization, and death. However, as I’m writing this, less than 55% of
+Arizonans over 12 years old are fully vaccinated against the virus. We know that
+people exposed to misinformation are much less likely to receive vaccinations
+against the virus [@loombaMeasuringImpactCOVID192021]. It is not an exaggeration
+to claim that misinformation has been deadly for Arizona
+[@pathakInfodemicsCOVID19Role2020].
+
+In academia and policy, the main focus is on the information that is sent to
+consumers, seeing people as passive receivers of information. My dissertation
+instead focuses on individuals as active agents in their search for information
+which helps me uncover the information individuals are exposed to. By looking at
+how individuals search, I aim to identify pain points and focus areas for future
+interventions in the misinformation process.
+
+This research project is important because the vehicles used to search by people
+impacts the information they are exposed to. Given the large swaths of both
+misinformation and disinformation regarding Covid-19 [@mottaHowRightLeaningMedia2020; @pathakInfodemicsCOVID19Role2020; @shahsavariConspiracyTimeCorona2020] and
+the measurable impacts this misinformation has had on pandemic-related health
+behaviors, how we choose to search for information affects our own lives and the
+lives of others. Moreover, individuals who do not utilize social networks for
+information search may feel like they have no network support, leading to
+feelings of network isolation with major implications for mental health 
+[@thoitsMechanismsLinkingSocial2011]
 
 
 # References {-}
