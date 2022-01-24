@@ -135,7 +135,13 @@ differences in information search vehicles utilization and vaccination
 reception.
 
 <!-- TODO this needs a lot of work but its a start -->
-
+Previous research has greatly failed to distinguish between the activation of
+information seeking behaviors online and offline. In this paper, I aim to
+uncover just how different various methods of information search are and begin a
+line of research inquiry that investigates the factors associated with each vehicle. 
+Finally, I also aimed to uncover how the different fountains of information and
+information search vehicles hold real world consequences through their associations
+with Covid-19 vaccination rates and intentions. 
 
 # Intro
 It is unclear how individuals choose to search for information through the
@@ -664,6 +670,24 @@ kable(phi_squared_tests, digits=3,
 
 ```
 
+To further investigate how people search for information, I asked those who had
+sought information out intentionally, "How did you look for information about
+the Covid-19 vaccine?" Because respondents could select as many responses as
+applicable, each response is recorded as a dichotomous variable. I first
+investigate how each Information Search Vehicle are related to each other using
+the Phi Coefficient ($\\phi$) of binary association between each Information
+Search Vehicle pair. The Phi coefficient can be interpreted like a correlation
+coefficient, with numbers closer to -1 or positive one indicating a very strong
+relationship [@warrens08]. Table \@ref(tab:model-2-chi2) shows the results of
+these coefficients. Out of the five information search vehicles investigated,
+there is evidence that the vehicles are distinctly different concepts because
+most coefficients fall under 0.3, the general rule of thumb for correlation 
+coefficients to indicate a relationship. There does seem to be a relationship
+between Online Forums and Social Networking Sites, possibly due to an
+individual's propensity to use online networks over in-person networks. These
+coefficients indicate a weak relationship between any two vehicles of
+information search and and that respondents in my sample utilize each of these a
+little bit differently.
 
 ```{r table-model-2}
 #| results = "asis"
@@ -749,25 +773,6 @@ modelsummary(part2_models,
   kable_styling(latex_options = c("scale_down", "hold_position", "striped"))  %>%
   add_header_above(c(" " = 1, "Dependent Variable" = 5))
 ```
-
-To further investigate how people search for information, I asked those who had
-sought information out intentionally, "How did you look for information about
-the Covid-19 vaccine?" Because respondents could select as many responses as
-applicable, each response is recorded as a dichotomous variable. I first
-investigate how each Information Search Vehicle are related to each other using
-the Phi Coefficient ($\\phi$) of binary association between each Information
-Search Vehicle pair. The Phi coefficient can be interpreted like a correlation
-coefficient, with numbers closer to -1 or positive one indicating a very strong
-relationship [@warrens08]. Table \@ref(tab:model-2-chi2) shows the results of
-these coefficients. Out of the five information search vehicles investigated,
-there is evidence that the vehicles are distinctly different concepts because
-most coefficients fall under 0.3, the general rule of thumb for correlation 
-coefficients to indicate a relationship. There does seem to be a relationship
-between Online Forums and Social Networking Sites, possibly due to an
-individual's propensity to use online networks over in-person networks. These
-coefficients indicate a weak relationship between any two vehicles of
-information search and and that respondents in my sample utilize each of these a
-little bit differently.
 
 Results of each logistic regression are displayed in Table \@ref(tab:table-model-2).
 Modeling each response as a separate formula is useful for interpretation, but
@@ -1013,27 +1018,38 @@ plot_summs(mod3,
 ```
 
 # Discussion
+Previous research in Sociology and Infodemiology has greatly failed to
+distinguish between the activation of information seeking behaviors online and
+offline. In this paper, I aim to uncover just how different various methods of
+information search are and begin a line of research inquiry that investigates
+the factors associated with each different vehicle. Finally, I also aimed to
+uncover how the different fountains of information and information search
+vehicles hold real world consequences through their associations with Covid-19
+vaccination rates and intentions.
 
-summary of purpose of paper
+I first find that receiving information about Covid-19 vaccinations from any
+outlined source increases the likelihood of searching out more information. I
+also find important demographic differences in the overall propensity to seek
+out information. First, I find that the older a respondent is, the more likely
+they are to seek out information about Covid-19 vaccinations, possibly
+indicating [???? TODO]. Furthermore, I find that those who are more educated,
+that is my respondents who hold an Associate's degree or higher were more likely
+to seek out information; for the most part this trend can be observed in Table
+\@ref(tab:table-model-2) as well. Human Capital Theory [@mirowsky_ross98] may
+help to explain this finding; this theory claims that education helps
+individuals gaining health-related knowledge and use this knowledge to be
+proactive in their own lives. Finally, I find that my respondents who identified
+as Black were more likely to seek out further information; this may be explained
+by the maltreatment that African-Americans have endured in the US
+healthcare system [@baileyStructuralRacismHealth2017] which has led to major
+distrust of the medical establishment among the population [@center2019a; @murray15]. 
 
 
-We contribute to the literature by using a multivariable approach to identify
-the sociodemographic factors associated with specific panethnic label
-preferences among Latinos/Hispanics. Specifically, we focus on how U.S. region,
-generation-since-immigration, racial identification, citizenship status,
-language use, national origin, education, and political affiliation shape
-panethnic label preference. We also call attention to factors associated with no
-preference at all for these terms
+(May need to cite [@bronson2014don] above or elsewhere)
 
 
-table 1 and 2 main findings 
+table 2 main findings 
 
-- receive info from any source increases searching for information 
-- older respondents more likely to search for information, perhaps indicating that 
-they are less likely to trust initial sources and dig deeper, perhaps indicating less
-polarization among older groups? 
-- higher education more likely to seek out  more information, also seen in table 2
-- blacks more likely to seek out more information
 usage of different information search vehicles varies by demographics and also reception of different ifnromation
 - overall, receiving information about Covid-19 vaccination generally spurs information seeking behaviors, though there are variations
 - receive info from doctor leads to searching info from doctor, likely indicates good communication and trust in doctor, solid relationship with healthcare professionals
@@ -1083,6 +1099,16 @@ pharetra convallis posuere morbi leo. Id diam vel quam elementum pulvinar etiam.
 \newpage
 
 # Conclusion
+Previous research has greatly failed to distinguish between the activation of
+information seeking behaviors online and offline. In this paper, I aim to
+uncover just how different various methods of information search are and begin a
+line of research inquiry that investigates the factors associated with each vehicle. 
+Finally, I also aimed to uncover how the different fountains of information and
+information search vehicles hold real world consequences through their associations
+with Covid-19 vaccination rates and intentions. 
+
+
+
 
 # References {-}
 
