@@ -41,7 +41,6 @@ knitr::opts_chunk$set(echo = FALSE,
 
 if (!require("pacman")) install.packages("pacman")
 pacman::p_load(tidyverse, glue, extrafont, here, jtools, 
-               # rms, 
                modelsummary, showtext, thematic, kableExtra, scales)
 
 
@@ -117,6 +116,25 @@ print_perc <- function(var){
 
 
 ```
+
+# Abstract 
+How do individuals perform information search, and what factors help them decide
+which information search vehicle to utilize, such as interpersonal networks or
+online tools, I investigate the above question  using individual survey data of
+934 Adults in the United States and find that 
+
+
+
+Knowing that Google
+trends data only encompasses a small portion of the information-seeking done by
+modern humans, it is important to investigate what leads individuals to search
+for a question online using a search engine versus more traditional means of
+information gathering, such as network activation (asking someone in their
+social network for informational support). I predict that few people will
+activate their social network for informational support in my chosen case of
+Covid-19 vaccinations because of the social cost of doing so and that the
+majority will have utilized an online search engine.
+
 
 # Intro
 It is unclear how individuals choose to search for information through the
@@ -432,10 +450,11 @@ information ('Received info') as well as various demographic variables such as
 age, education level and race. Figure \@ref(fig:plot-model-1) then illustrates
 the relationship between the coefficients and information seeking.^[Figures in this paper were all created using the `r` packages jtools [@jtools] and ggplot2 [@wickham_etal; @wickham11] ].
 In Table \@ref(tab:table-model-2), I disaggregate information seeking behaviors
-by modelling a series of logistic regressions that predict the 5 different
-avenues of seeking information about Covid-19: from another person, from a
-doctor, on an online forum, on a social networking site, or using an online
-search tool.
+by investigating the difference in proportions of each of the vehicles in 
+\@ref(tab:model-2-chi2) and then by modelling a series of logistic regressions 
+that predict the 5 different avenues of seeking information about Covid-19: 
+from another person, from a doctor, on an online forum, on a social networking 
+site, or using an online search tool.
 Finally, in Table \@ref(tab:table-model-3), I investigate whether there is a
 relationship between information receiving and information seeking behaviors and
 the choice to get vaccinated against Covid-19 through a logistic regression
@@ -527,8 +546,8 @@ modelsummary(mod1,
             add_rows = rows,
             coef_map = regression_labels,
             notes = list('* p < .05. ** p < .01. *** p < .001 (two-tailed test).',
-                      'Exponentiated Coefficients'),         
-            exponentiate = TRUE,
+                      'Raw, Unexponentiated Coefficients'),            
+            # exponentiate = TRUE,
             output = "kableExtra") %>%
   kable_styling(latex_options = c("hold_position", "striped"))
 
@@ -607,6 +626,51 @@ the relationship between the coefficients and information seeking.
 
 
 ## Information Search Vehicles
+```{r model-2-chi2}
+#| results = "asis"
+
+chi <- rain %>% 
+  select(pers = int_sought_fr_pers,
+         dr = int_sought_fr_dr,
+         forum = int_sought_fr_onlgroup,
+         net = int_sought_fr_onlnet,
+         search = int_sought_fr_onlsearch)
+  
+find_p <- function(x, y){
+  tab <- table(x, y)
+  as.numeric(chisq.test(tab)["p.value"])
+}
+
+
+chi_squared_tests <- 
+tribble(~col, ~Person, ~Dr, ~`Online Forum`, ~`Online Network`, ~`Online Search`,
+'Person',   NA, find_p(chi$pers, chi$dr), find_p(chi$pers, chi$forum), find_p(chi$pers, chi$net), find_p(chi$pers, chi$search),
+'Dr',     NA, NA, find_p(chi$dr, chi$forum), find_p(chi$dr, chi$net), find_p(chi$dr, chi$search),
+'Online Forum',  NA, NA, NA, find_p(chi$forum, chi$net), find_p(chi$forum, chi$search),
+'Online Network',    NA, NA,NA, NA, find_p(chi$net, chi$search),
+'Online Search', NA, NA, NA, NA, NA)
+
+
+chi_squared_tests %>%
+  mutate(across(where(is.numeric), ~ sprintf("%.3f", round(., digits = 3)))) %>% 
+  mutate(Person = cell_spec(Person, format = "html", bold = Person < 0.05),
+       Dr = cell_spec(Dr, format = "html", bold = Dr < 0.05),
+       `Online Forum` = cell_spec(`Online Forum`, format = "html", bold = `Online Forum` < 0.05),
+       `Online Network` = cell_spec(`Online Network`, format = "html", bold = `Online Network` < 0.05),
+       `Online Search` = cell_spec(`Online Search`, format = "html", bold = `Online Search` < 0.05)) %>% 
+  kable(., escape = FALSE,
+      digits=3,  
+      caption = "Pearson's $\\chi^2$ test with Yates' continuity
+	correction  between each Information Search Vehicle",
+      col.names = c("",'Person', 'Dr', 'Online Forum', 'Online Network', 'Online Search')      ) %>% 
+  kable_styling(latex_options = c("hold_position", "striped"),
+                full_width = F) %>%
+  column_spec(column = 1, bold = T) %>% 
+  footnote(c("Bolded values are significant using $\\alpha = 0.05$, two-tailed test"))
+```
+
+
+
 ```{r table-model-2}
 #| results = "asis"
 
@@ -683,9 +747,9 @@ modelsummary(part2_models,
             gof_omit = 'AIC',
             coef_map = regression_labels,
             notes = list('* p < .05. ** p < .01. *** p < .001 (two-tailed test).',
-                      'Exponentiated Coefficients'),            
+                      'Raw, Unexponentiated Coefficients'),            
             title = 'What predicts someone intentionally searched for information, by vehicle of information search',
-            exponentiate = TRUE,
+            # exponentiate = TRUE,
             add_rows = rows,
             output = "kableExtra") %>%
   kable_styling(latex_options = c("scale_down", "hold_position", "striped"))  %>%
@@ -702,6 +766,10 @@ there are important caveats: because each logistic regression is on a different
 scale, one must not compare the magnitude of coefficients between models. We
 can, however, use the direction and significance of the coefficients to draw
 conclusions about these different forms of information search vehicles.
+
+TODO interpret table \@ref(tab:model-2-chi2), the chi2 tests to see differences
+
+
 
 The first model predicts whether or not a respondent sought information
 intentionally about Covid-19 vaccinations by asking their doctor or another
@@ -870,10 +938,10 @@ modelsummary(mod3,
             estimate = "{estimate}{stars} ({std.error})",
             title = 'Does receiving or searching for information predict vaccination status?',
             notes = list('* p < .05. ** p < .01. *** p < .001 (two-tailed test).',
-                      'Exponentiated Coefficients'),        
+                      'Raw, Unexponentiated Coefficients'),            
             coef_map = regression_labels,
             add_rows = rows,
-            exponentiate = TRUE,
+            # exponentiate = TRUE,
             output = "kableExtra") %>%
   kable_styling(latex_options = c("hold_position", "striped"))
 ```
@@ -941,10 +1009,60 @@ plot_summs(mod3,
 
 # Discussion
 
-summary of purpose
+summary of purpose of paper
 
-for results - Table 1
-this never before seen pattern in sociology may be a result of response bias, (most likely to select more information) but it also could indicate a sheltering effect ... 
+
+We contribute to the literature by using a multivariable approach to identify
+the sociodemographic factors associated with specific panethnic label
+preferences among Latinos/Hispanics. Specifically, we focus on how U.S. region,
+generation-since-immigration, racial identification, citizenship status,
+language use, national origin, education, and political affiliation shape
+panethnic label preference. We also call attention to factors associated with no
+preference at all for these terms
+
+
+table 1 and 2 main findings 
+
+- receive info from any source increases searching for information 
+- older respondents more likely to search for information, perhaps indicating that 
+they are less likely to trust initial sources and dig deeper, perhaps indicating less
+polarization among older groups? 
+- higher education more likely to seek out  more information, also seen in table 2
+- blacks more likely to seek out more information
+usage of different information search vehicles varies by demographics and also reception of different ifnromation
+- overall, receiving information about Covid-19 vaccination generally spurs information seeking behaviors, though there are variations
+- receive info from doctor leads to searching info from doctor, likely indicates good communication and trust in doctor, solid relationship with healthcare professionals
+- few things predict seeking out information from another person, personal networks are so embedded in everyday life so perhaps don't remember doing it or behavioral prediction is notoriously hard
+- Received Info, Social Networking Site negatively predicts Online Forum, indicating that if your social networks fulfill your need for information you don't need to extend out to online forums to ask for things, need is already met? 
+- Asians are really unlikely to use online forums to find information in this context, very strong association but hispanics are more likely than non-hispanics to search online 
+- online search is much less likely from those with higher education, which is counter intuitive since they are the population that has been the most trained in research methods and critical thinking .. perhaps they trust the information that they hear if they consider it to be a trusted source (typical higher education format of trust the professor) so they don't look deeper into it? basically already have high social capital in other ways, already set up to receive the information they needed and trusted
+- older populations are more likely to 'just google it'
+
+takeaways: Not everyone is activating their personal social networks or using Google in the same rates, the internal variation of users is important to consider when using something like Google Trends
+education really affects information seeking behavior
+ethno-racial differences affect information seeking behavior, more research should look into why there are group differences (likely cultural)
+
+Takeaway 2: in person, online, or search engines?  
+
+
+table 3 main findings 
+- very important for getting people to get vaccinated - a major goal for public Health authorities over the last two years
+- extremely importnat given misinformation around vaccinations 
+- receiving information from a doctor or other medical profession (or seeking) leads to more positive opinions. action inspired by this - difficult because of lack of primary care doctors for many americans, but every doctor should discuss the importance for every patient they interact with 
+- receiving information from a social networking site NOT an online for results in less vaccinations. 
+- differences in education level and race ; seen in prior literature however most current literature claims that anti-vacination attitudes span social class, political ideology, and X. 
+
+
+
+social netwokring site
+info from doctor
+
+
+
+
+
+
+<!-- this never before seen pattern in sociology may be a result of response bias, (most likely to select more information) but it also could indicate a sheltering effect ... <--- I wish I knew what I was talking about here -->
 
 
 rather than on “the receiver as an active information seeker and processor."
@@ -955,35 +1073,12 @@ Est velit egestas dui id ornare arcu odio ut. Tempus iaculis urna id volutpat
 lacus laoreet non curabitur gravida. Integer malesuada nunc vel risus commodo.
 Ipsum nunc aliquet bibendum enim facilisis gravida. Ac turpis egestas maecenas
 pharetra convallis posuere morbi leo. Id diam vel quam elementum pulvinar etiam.
-Neque aliquam vestibulum morbi blandit cursus risus at ultrices mi. Sem
-fringilla ut morbi tincidunt augue interdum velit euismod. Ullamcorper eget
-nulla facilisi etiam dignissim diam quis enim lobortis. Turpis egestas pretium
-aenean pharetra magna ac placerat vestibulum lectus. Elit ut aliquam purus sit
-amet luctus venenatis. Vitae tempus quam pellentesque nec nam. In est ante in
-nibh. Nisl tincidunt eget nullam non nisi est sit. Cras adipiscing enim eu
-turpis egestas. Velit dignissim sodales ut eu sem integer vitae justo eget. Arcu
-non sodales neque sodales ut etiam sit amet. Turpis in eu mi bibendum neque
-egestas congue quisque egestas.
-
-At varius vel pharetra vel turpis nunc eget lorem. In nulla posuere sollicitudin
-aliquam. Dui faucibus in ornare quam. Vivamus arcu felis bibendum ut tristique.
-Ornare aenean euismod elementum nisi. Eget aliquet nibh praesent tristique.
-Rhoncus dolor purus non enim praesent elementum. Id faucibus nisl tincidunt eget
-nullam non nisi est. Eget arcu dictum varius duis at consectetur lorem donec
-massa. At tempor commodo ullamcorper a lacus vestibulum sed arcu.
-
-Lectus mauris ultrices eros in. Diam ut venenatis tellus in metus vulputate eu
-scelerisque. Magna ac placerat vestibulum lectus mauris. Est velit egestas dui
-id ornare arcu odio ut. Sagittis aliquam malesuada bibendum arcu vitae
-elementum. Nisi lacus sed viverra tellus in hac habitasse. Nunc eget lorem dolor
-sed. Condimentum id venenatis a condimentum vitae. Ipsum faucibus vitae aliquet
-nec ullamcorper sit amet risus nullam. Tincidunt eget nullam non nisi est.
-Ornare quam viverra orci sagittis eu volutpat. Risus quis varius quam quisque.
-Lobortis scelerisque fermentum dui faucibus. A diam sollicitudin tempor id eu
-nisl nunc mi ipsum.
 
 
 \newpage
+
+# Conclusion
+
 # References {-}
 
 <div id="refs"></div>
