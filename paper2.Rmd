@@ -119,32 +119,24 @@ print_perc <- function(var){
 ```
 
 # Abstract 
-How do individuals perform information search, and what factors help them decide
-which information search vehicle to utilize, such as interpersonal networks or
-online tools, I investigate the above question using individual survey data of
-934 Adults in the United States and find that X and Y. Furthermore, this paper
-demonstrates that searching for a question online using a search engine or
-social network was more common than traditional means of information gathering,
-such as network activation (asking someone in their social network for
-informational support). Using X and Y theory I predict that that few people will
-activate their social network for informational support in my chosen case of
-Covid-19 vaccinations because of the social cost of doing so but fail to find
-evidence for this thesis. I also investigate which information channels are
-associated with vaccinations against the virus and find that social networking
-sites are associated with lower rates. I also find important ethnoracial
-differences in information search vehicles utilization and vaccination
-reception.
-
-<!-- TODO this needs a lot of work but its a start -->
 Previous research has greatly failed to distinguish between the activation of
-information seeking behaviors online and offline. In this paper, I aim to
-uncover just how different various methods of information search are and begin a
-line of research inquiry that investigates the factors associated with each vehicle. 
-Finally, I also aimed to uncover how the different fountains of information and
-information search vehicles hold real world consequences through their associations
-with Covid-19 vaccination rates and intentions. 
+information seeking behaviors online and offline. Using theories of social
+support and uses and gratifications theory I investigate the factors associated
+with each vehicle type when on information seeking vehicle: personal connection,
+doctor, social networking site, online forum, and online search engine. Using
+novel survey data of `r nrow(rain)` Americans and their experience seeking out
+information about the Covid-19 vaccines, I find little evidence that online
+search is more utilized than seeking social support from personal network
+connections or health professionals. I find evidence that the vehicles queried
+in this survey are conceptually different and that the utilization of different
+vehicles varies by demography and information sources. Finally, I find that
+different fountains of information and information search vehicles hold real
+world consequences through their associations with Covid-19 vaccination rates
+and intentions, as information from a doctor increased the Covid-19 vaccination
+uptake while receiving information from a Social Networking Site like Facebook
+or Twitter was associated with lower odds of vaccination.  
 
-Keywords: Information-Seeking Behavior, Covid-19, Vaccine Hesitancy, Social Networks, 
+**Keywords**: Information-Seeking Behavior, Covid-19, Vaccine Hesitancy, Social Networks, Social Support, Information & Communication Technologies
 
 # Intro 
 
