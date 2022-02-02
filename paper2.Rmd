@@ -5,12 +5,12 @@ date: "`r format(Sys.time(), '%d %B, %Y')`"
 editor_options:
   chunk_output_type: console
 output:
-  bookdown::pdf_document2:
-    latex_engine: xelatex
-    number_sections: true
   bookdown::word_document2: 
     toc: true
     reference_docx: StylesTemplate.docx
+  bookdown::pdf_document2:
+    latex_engine: xelatex
+    number_sections: true
 header-includes:
    - \usepackage{siunitx}
    - \usepackage{setspace}
@@ -923,7 +923,7 @@ social networking site like Facebook or twitter where identities are involved,
 but is theoretically more [costly?][friction?] than searching on an internet
 search engine. I found that having received information about the vaccine from 
 your personal social network (like a friend or relative), the news, or an online
-forum was associated with higher odds of querying an online forum. Specifically,  
+forum was associated with higher odds of querying an online forum. Specifically, 
 receiving information from your personal network is associated with 
 `r round(exp(part2_models$'Online Forum'$coefficients[['receive_i_fr_pers1']]), 2)`
 higher odds ( _p_ < 0.001), from news or television media with `r round(exp(part2_models$'Online Forum'$coefficients[['receive_i_fr_tv1']]), 2)` higher odds ( _p_ < 0.05), and 
@@ -1176,7 +1176,7 @@ are associated with compliance with public health recommendations. Table
 information and information search vehicles are associated with real world
 consequences through Covid-19 vaccination rates and intentions. The first
 takeaway is that receiving or seeking information from a doctor or other medical
-profession leads to higher likelihood of completed or planned vaccinations.
+profession was associated with higher likelihood of completed or planned vaccinations.
 While blanket advice like "Healthcare Providers should recommend the vaccine to
 their patients" would be ineffective because of the declining number of
 Americans with a primary care doctor [@levine_etal20], increasing trust in the
@@ -1298,19 +1298,20 @@ lives and the lives of others.
 This paper has provided several key findings that can be used to motivate policy
 interventions for the Covid-19 vaccination campaigns and in the future for other
 information campaigns. However, these findings are not to be taken out of the
-context of their limitations. This paper is built off a small survey sample (`r
-nrow(rain)`) that was hosted online and anonymously through MTurk, a service
+context of their limitations. This paper is built off a small survey sample (
+`r nrow(rain)`) that was hosted online and anonymously through MTurk, a service
 that provides people with micro-jobs. Because of how the website is set up,
 respondents are incentivized to fill out surveys as quick as possible and there
 were many responses that were poor quality and removed from the sample before
-analysis. Moreover, there is no incentive for respondents to be honest in these
-surveys. However, each of these limitations are often pointed to as limitations 
-of survey research as a whole. 
+analysis. Because of this, there is no incentive for respondents to be honest in
+these surveys. However, each of these limitations are often pointed to as
+limitations of survey research as a whole. Even given these limitations,
+the finding of this paper are interesting contributions to the literature.
 
 Overall, this research project is important because the vehicles used in
-information search impacts the information and quality of information found By
-looking at how individuals search, I aim to identify pain points and focus areas
-for future interventions in the misinformation process.
+information search impacts the information and quality of information found. By
+looking at how individuals search, I aim to identified pain points and focus areas
+for future interventions (receiving information online; ethnoracial variations; ) in the misinformation process.
 
 
 \newpage
