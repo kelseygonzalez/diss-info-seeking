@@ -5,9 +5,6 @@ date: "`r format(Sys.time(), '%d %B, %Y')`"
 editor_options:
   chunk_output_type: console
 output:
-  bookdown::word_document2: 
-    toc: true
-    reference_docx: StylesTemplate.docx
   bookdown::pdf_document2:
     latex_engine: xelatex
     number_sections: true
@@ -118,200 +115,8 @@ print_perc <- function(var){
 
 ```
 
-# Abstract 
-Previous research has greatly failed to distinguish between the activation of
-information seeking behaviors online and offline. Using theories of social
-support and uses and gratifications theory I investigate the factors associated
-with each vehicle type when on information seeking vehicle: personal connection,
-doctor, social networking site, online forum, and online search engine. Using
-novel survey data of `r nrow(rain)` Americans and their experience seeking out
-information about the Covid-19 vaccines, I find little evidence that online
-search is more utilized than seeking social support from personal network
-connections or health professionals. I find evidence that the vehicles queried
-in this survey are conceptually different and that the utilization of different
-vehicles varies by demography and information sources. Finally, I find that
-different fountains of information and information search vehicles hold real
-world consequences through their associations with Covid-19 vaccination rates
-and intentions, as information from a doctor increased the Covid-19 vaccination
-uptake while receiving information from a Social Networking Site like Facebook
-or Twitter was associated with lower odds of vaccination.  
 
-**Keywords**: Information-Seeking Behavior, Covid-19, Vaccine Hesitancy, Social Networks, Social Support, Information & Communication Technologies
-
-# Intro 
-
-Information is all around us and permeates every facet of human society, from
-the hordes of data gathered during the internet age or passing gossip between
-friends. Human communication and human society are based on the circulation of
-information and knowledge. Information can be shared by others through
-information campaigns and consumed by an individual, called information push, or
-intentionally sought out by individuals, called information pull 
-[@cybenkoFoundationsInformationPush1999].
-
-Information is especially important given the prominent trends of
-misinformation, disinformation, and mistrust in traditional institutions
-[@starbird19; @kata10]. While no belief in false information can be thought of as
-harmless [@douglas21] some discredited theories such as 'vaccines cause autism'
-have major ramifications for both the individual and the social world that
-surrounds them. For example, a newfound public resistance to vaccination
-against Measles by so-called 'anti-vaxxers' caused a 17% increase in rates
-worldwide in 2019. This increase killed  142,000 people, most of whom were
-children under the age of five [@givetash19]. However, even in the ever-evolving
-research agenda of misinformation and infodemiology [@eysenbach02], much of the
-research focuses on the 'push' or 'supply' side of information, like spaces where
-individuals first encounter with conspiracy theories or other information
-[@johnsonOnlineCompetitionPro2020; @broniatowski_etal20].
-<!-- cite something else here -->
-
-The lack of research in which vehicles are likely to be chosen when an
-individual faces a need for information makes it difficult for policy makers to
-propose effective information campaigns that promote the health and wellbeing of
-individuals in our society. Even outside of the misinformation literature, much
-of the research conducted in social networks and communication focus on senders,
-influencers, and persuasion strategies [@mertonManifestLatentFunctions1968;
-@katzPersonalInfluencePart1955; @lazarsfeldPeopleChoice1944 ], rather than on
-“the receiver as an active information seeker and processor."
-[@johnsonComprehensiveModelCancerRelated1993; though there are always exceptions
-@eysenbach09].
-
-I use the case of information around Covid-19 vaccinations to explore the
-variation of usage of information search vehicles. In doing so, I seek to answer
-how computer-mediated or interpersonal information-seeking strategies vary
-across populations in their search for information about Covid-19 vaccinations
-and investigate how these strategies affect vaccination uptake. 
-
-Before addressing my central research questions, I offer an overview of the
-current state of social science literature in regards to infromation-seeking
-strategies before providing a description of the research methodology and
-analytic sample. I discuss the implications of these findings for the
-sociological understanding of information search and vaccination uptake.
-
-## Information Search
-
-Active, directed searching by individuals to obtain information is sparsely
-discussed in the sociological literature. Pejtersen
-[-@pejtersenDesignComputeraidedUsersystem1984], a scholar of library and
-information science, theorized that there are 5 strategies for searching for
-information. The most common strategy is browsing, where people follow leads
-based on associations without premeditation. Another strategy is analytical,
-which includes an explicit consideration of all facets of the question to guide
-a search. The empirical method guides the search based on tactics that were
-successful in past research. The known site strategy is to go to the direct
-source of the information if known. And finally, the similarity method is to
-find information based on another similar question that already has an answer.
-These 5 strategies vary in their demands for prior knowledge, cognitive
-processing, memory, and time spent. While this theory is aimed at finding
-information in a library setting, scholars have extended the theory to other
-fields and validated the framework [@fidelHumanInformationInteraction2012]; the
-frame is a useful beginning point for my theories of information search through
-network activation or through computer-mediated communication.
-
-Some communication theorists ask why an answer to a question is sought in the
-first place. The Theory of Uncertainty Management
-[@brashersCommunicationUncertaintyManagement2001] professes that people search
-for information when their uncertainty around the subject leads to anxiety or
-other cognitive harms. The Theory of Motivated Information Management
-[@afifiTheoryMotivatedInformation2004; @afifiSeekingInformationSexual2006]
-extends the prior by adding that uncertainty itself is not the catalyst for
-information-search; rather, it is driven by a discrepancy between the current
-level of uncertainty on a subject and desired level of uncertainty. In other
-words, individuals only perform information search when they are distressed by
-their lack of knowledge or understanding on a subject.
-
-One way to find information is to activate network ties to find out information
-through a form of social support. Social support, while previously used
-interchangeably with the term social networks and social integration
-[@houseStructuresProcessesSocial1988], are the emotional, informational, and
-instrumental assistance functions performed between social ties and have strong
-and measurable association with health outcomes
-[@houseMeasuresConceptsSocial1985; @thoitsMechanismsLinkingSocial2011].
-Informational support is the process of seeking “help in defining,
-understanding, and coping with problematic events and include education, advice,
-or referral to another source of support” [@winemiller_etal93, p. 640].
-Brashers, a health communications researcher, defines informational support
-slightly differently, focusing on the exchange of information that “facilitates
-coping with life stresses… that may be exchanged among members of a support
-network” [-@brashersInformationSeekingAvoiding2002, p. 260]. These definitions
-help to differentiate between seeking information through social ties or through
-something anonymous like online search; a need for coping or deeper
-understanding of important matters is thought to sway that decision.
-
-Social support has long been theorized to stem from core discussion networks and
-much of the historical social support surveys only looked at these core
-networks. The underlying assumption is that individuals reach out to a handful
-of strong ties when in need of support, which could be elicited in surveys using
-name generators [@marsdenCoreDiscussionNetworks1987]. This approach has yielded
-important insights, but largely overlooks crucial
-processes of resource activation [@hurlbertCoreNetworksTie2000;
-@perrySocialNetworkActivation2015; @smithDonPutMy2005]. For instance, Small
-[-@smallSomeoneTalk2017] shows that the core discussion network does not capture
-how people activate social support in practice and indicates that people draw on
-much broader social connections for support, reminiscent of the weak ties
-research by Granovetter [-@granovetterStrengthWeakTies1973]. There is ongoing
-research investigating how weak-tie support holds for different support types
-based on the architecture put forward by House, Umberson, and Landis
-[-@houseStructuresProcessesSocial1988] of instrumental, emotional, and
-informational support. 
-
-However, informational support can also be sought outside of the social network
-context, namely via computer-mediated information search tools such as the
-process of “Googling”. As the online environment began penetrating all facets of
-modern human life, it makes sense that performing online search has become one
-of the most convenient vehicles for information search. While Small
-[-@smallSomeoneTalk2017] focuses on how support can depend on a network tie
-simply "happened to be there", online search is theoretically the most
-frictionless and costless mode of support. No social capital or relationship is
-necessary when chosing to utilize a search engine. 
-
-There are three computer-mediated vehicles I consider for this analysis: online
-search engines like Google or Bing, posting questions on online forums like
-subreddits or Facebook groups, and posting a status update online via Facebook
-or Twitter. While the first two are largely anonymous and don't require a
-personal network, the third is a unique hybrid between personal network
-connections and online search.
-
-There are important factors that can influence information-seeking strategies
-besides the strength of social capital or ease of search. For instance, we can
-borrow uses and gratifications theory (UGT) from studies of mass communication
-[@blumlerUsesMassCommunications1974; @tanMassCommunicationTheories1985]. UGT
-posits that users are not passive consumers of media and that people have an
-active role in choosing different sources of media based on their satisfaction
-of specific needs on an individual basis. UGT is based on Maslow’s
-[-@maslowTheoryHumanMotivation1943] hierarchy of needs and is compatible with
-Lazarsfeld and Katz’s theory of two-step flow [-@katzPersonalInfluencePart1955]
-because people can choose their media and the opinion leaders they follow.
-Modern-day theorists have extended UGT theory and classified the uses and
-gratifications of the internet and of social media. Stafford, Stafford, and
-Schkade [-@staffordDeterminingUsesGratifications2004] theorize that the internet
-provides gratification through useful content that meets expectations,
-gratification from purposeful navigating or random browsing as a process, and
-social gratification from forming and deepening social ties. Leung
-[-@leungGenerationalDifferencesContent2013] theorizes that social media is
-gratifying for users because it allows for venting of negative feelings,
-provides recognition, provides entertainment, promotes social affection, and
-fulfills cognitive needs. 
-
-Adapting these facets of UGT and social support to my own case, I theorize that
-online search allows for increased anonymity, a lowered social cost, and the
-potential avoidance of embarrassment and other negative social interactions,
-especially in the case on search engines. Stephen Rains
-[-@rainsCopingIllnessDigitally2018] finds that patients tend to search for
-technical information about an illness online but they then turn to their social
-network for experiential information from others facing similar circumstances in
-the case of cancer. The type of information sought is therefore important.
-If specific expertise on a specific topic is desired by a searcher, they may
-reach out to personal connections that they see as expert such as a doctor, or
-if an individual distrusts the medical establishment, they may be more likely to
-activate informational support among their social network or turn to online
-groups that validate their worldview [@bogersHowSocialAre2014]. Finally, UGT and
-Brasher's definition of social support
-[-@brashersInformationSeekingAvoiding2002] help us to theorize that the
-psychosocial needs like identity management or relational maintenance
-[@brashersInformationSeekingAvoiding2002] of an individual may influence their
-chosen information search vehicle: when the informational need is related to
-forming and deepening social ties search is likely to be done from network ties.
-
-# Research Methodology
+## Research Methodology
 The data used for this research project are based on original survey data
 sampled between `r format( min(rain$date), '%B %d, %Y')`  through 
 `r format(max(rain$date), '%B %d, %Y')`. This survey was hosted on Qualtrics and
@@ -333,7 +138,7 @@ valid survey took `r round(min(rain$duration), 2)` minutes and the longest took
 time after Amazon administrative fees, funded by a Grant awarded to Kelsey E.
 Gonzalez and Nicolas Legewie by the Summer Institute in Computational Social
 Science and the Russell Sage Foundation. The main portion of this survey
-replicates the book, Someone to Talk To [@smallSomeoneTalk2017] by expanding on
+replicates the book, Someone to Talk To  by expanding on
 Small’s finding that people draw on much broader sources than “important people”
 for support by segregating weak-tie social support into instrumental, emotional,
 and informational support [see @houseStructuresProcessesSocial1988]. The latter
@@ -400,9 +205,9 @@ datasummary(formula =
 
 ```
 
-## Measures
+### Measures
 
-###  Sought Information
+####  Sought Information
 There are multiple dependent variables of interest for this paper. The first
 variable is a dichotomous indicator of whether someone intentionally sought out
 information about Covid-19 vaccinations. The survey asked, "And how about you 
@@ -431,7 +236,7 @@ And finally, `r print_perc(rain$int_sought_fr_onlnet)` of the sample 'posted que
 on a social networking site such as Facebook timeline, Twitter status update, or 
 LinkedIn' (95% Confidence Interval = \{`r conf_int_prop(rain$int_sought_fr_onlnet)`\}).
 Much of the question wording and the specific categories of search were inspired
-by ICPSR project 37220 [@scanlon19].
+by ICPSR project 37220
 
 ```{r table-2-desc}
 #| results = "asis"
@@ -449,11 +254,11 @@ datasummary(formula = ((`Gender` = gender)+
             output = "kableExtra") %>%
   kable_styling(latex_options = c("hold_position", "striped"))
 
-# TODO reorder factors in categorical table
+## TODO reorder factors in categorical table
 
 ```
 
-### Vaccination Outlook
+#### Vaccination Outlook
 
 ```{r}
 vacc_status_freq <- rain[!is.na(rain$vacc_status_future),] %>% 
@@ -470,7 +275,7 @@ of  two survey items. The first item is actual vaccination status, obtained thro
 the question 'Did you receive a Covid-19 vaccine?'.
 `r print_perc(rain$vacc_status)` of the sample said that
 they had indeed received a vaccination (95% Confidence Interval = \{`r conf_int_prop(rain$vacc_status)`\}). As the national vaccination rate is
-closer to 75% [@cdc20], this indicates some bias in our sample that must be
+closer to 75%, this indicates some bias in our sample that must be
 acknowledged: either MTurkers are more likely to be vaccinated that the normal
 population (sampling bias) or there is some conformity bias in the responses
 causing survey takers to provide false answers. The second survey item that
@@ -478,21 +283,21 @@ contributes to 'Vaccination Outlook' was only given to those who had not
 responded 'yes' to the to their vaccination status. These respondents were asked 'Do you
 plan to receive a vaccine for the prevention of the Covid-19 virus?'. Of those
 who were asked this question (n = `r nrow(rain[!is.na(rain$vacc_status_future),])`),
-`r label_percent()(filter(vacc_status_freq, col == 'Definitely yes') %>% pull(n))`
+`r scales::label_percent()(filter(vacc_status_freq, col == 'Definitely yes') %>% pull(n))`
 said they were 'definitely yes' getting the vaccine; 
-`r label_percent()(filter(vacc_status_freq, col == 'Probably yes') %>% pull(n))` 
+`r scales::label_percent()(filter(vacc_status_freq, col == 'Probably yes') %>% pull(n))` 
 said they were 'probably yes' going to receive vaccine. The rest of the sample was more unsure: 
-`r label_percent()(filter(vacc_status_freq, col == 'Might or might not') %>% pull(n))`
+`r scales::label_percent()(filter(vacc_status_freq, col == 'Might or might not') %>% pull(n))`
 said they 'Might or might not', 
-`r label_percent()(filter(vacc_status_freq, col == 'Probably not') %>% pull(n))`
+`r scales::label_percent()(filter(vacc_status_freq, col == 'Probably not') %>% pull(n))`
 said 'Probably not', and finally
-`r label_percent()(filter(vacc_status_freq, col == 'Definitely not') %>% pull(n))`
+`r scales::label_percent()(filter(vacc_status_freq, col == 'Definitely not') %>% pull(n))`
 said they would 'definitely not' receive the vaccine. The variable 'Vaccination
 Outlook' indicates that either the respondent received a Covid-19 vaccine or
 either probably or definitely will in the future.
 
 
-### Independent Variables
+#### Independent Variables
 The first independent variables used in this analysis are based on the question, 
 'In the past 12 months, without searching for it, did you receive information
 about the Covid-19 vaccine from … (check all sources you received information
@@ -512,8 +317,8 @@ online forum like a Facebook group or subreddit
 
 We also asked various demographic questions to understand our sample. The 
 average age of our sample was `r round(mean(rain$age, na.rm = T), 2)`. 
-Our sample was `r label_percent()(nrow(filter(rain, gender == "Female")) / nrow(rain))`
-female, and `r label_percent()(nrow(filter(rain, gender == "Male")) / nrow(rain))`
+Our sample was `r scales::label_percent()(nrow(filter(rain, gender == "Female")) / nrow(rain))`
+female, and `r scales::label_percent()(nrow(filter(rain, gender == "Male")) / nrow(rain))`
 male. The sample is diverse racially though some ethnic groups are underrepresented compared to national averages. Race was evaluated using the
 question, 'What is your race? If you are "mixed race", select all that apply.'
 Because of the multi-selection question, each variable is dichotomous and
@@ -529,27 +334,27 @@ breakdown between 'Less than high school', 'High school graduate', 'Some college
 professional degree',  `r print_perc(rain$college)` of the sample were classified
 to have a college-level education (Associate's degree or above). 
 
-# Analysis
+## Analysis
 
 My analytic strategy proceeds in four steps. In Tables \@ref(tab:table-1-desc) 
 & \@ref(tab:table-2-desc), I present descriptive statistics for all study 
 variables, including variable ranges, means, and standard deviations. For this 
 paper, I rely heavily on logistic regression, modeled in `r`; specifically, I 
-fit a series of Binomial Generalized Linear Models [@venables2002a]. In Table \@ref(tab:table-model-1)^[All tables in this paper were created with the modelsummary package in `r` [@modelsummary] ]
+fit a series of Binomial Generalized Linear Models. In Table \@ref(tab:table-model-1)^[All tables in this paper were created with the modelsummary package in `r`  ]
 , I fit a logistic regression model predicting
 whether someone sought information about Covid-19 using their sources of
 information ('Received info') as well as various demographic variables such as
 age, education level and race. Figure \@ref(fig:plot-model-1) then illustrates
 the relationship between the coefficients and information seeking.^[Figures in 
-this paper were all created using the `r` packages jtools [@jtools] and ggplot2 [@wickham_etal; @wickham11] ].
+this paper were all created using the `r` packages jtools  and ggplot2
 In Table \@ref(tab:model-2-phi) I disaggregate information seeking behaviors by
 investigating the difference in proportions of each of the 5 different avenues
 of seeking information about Covid-19: from another person, from a doctor, on an
 online forum, on a social networking site, or using an online search tool. I
-investigate these differences through a phi coefficient [@warrens08], otherwise
+investigate these differences through a phi coefficient , otherwise
 known as a mean square contingency coefficient which is used to investigate the
 degree of association between two binary variables. ^[To calculate the Phi
-Coefficient, I utilize the Psych `r` package [@psych] ] I then investigate the
+Coefficient, I utilize the Psych `r` package  ] I then investigate the
 associations between my predictors and the 5 information search vehicles by
 modelling a series of logistic regressions in Table \@ref(tab:table-model-2).
 Finally, in Table \@ref(tab:table-model-3), I investigate whether there is a
@@ -558,7 +363,7 @@ the choice to get vaccinated against Covid-19 through a logistic regression
 model predicting Vaccination Outlook.  Figure \@ref(fig:plot-model-3) then
 illustrates the relationship between the coefficients and vaccination outlook.
 
-# Results
+## Results
 ```{r clean_before_reg}
 rain_mod <- rain %>% 
   mutate(across(c(receive_i,
@@ -596,16 +401,17 @@ regression_labels = c(
   'int_sought_fr_onlgroup1' = 'Sought Info, Online Forum',
   'int_sought_fr_onlsearch1' = 'Sought Info, Online Search',
   'age' = 'Age',
-  'gender=Male' = 'Gender, Male',
-  'gender=Other' = 'Gender, Other',
-  'college1' = "Associate's Deg or above",
+  'genderMale' = 'Gender, Male',
+  'genderOther' = 'Gender, Other',
+  'female' = 'Gender, Female',
+    'college1' = "Associate's Deg or above",
   'race_white1' = 'White',
   'race_black1' = 'Black',
   'race_nat1' = 'Native American',
   'race_asian1' = 'Asian',
   'hispanic1' = 'Hispanic or Latino/x')
 ```
-## Information Seeking
+### Information Seeking
 ```{r table-model-1}
 #| results = "asis"
 
@@ -668,20 +474,20 @@ plot_summs(mod1,
              'Sought Info, Online Forum' = 'int_sought_fr_onlgroup',
              'Sought Info, Online Search' = 'int_sought_fr_onlsearch',
              'Age' = 'age',
-             'Gender, Male' = 'gender=Male',
-             'Gender, Other' = 'gender=Other',
+             'Gender, Male' = 'genderMale',
+             # 'Gender, Other' = 'genderOther',
              "Associate's Deg or above" = 'college',
              'White' = 'race_white',
              'Black' = 'race_black',
              'Native American' = 'race_nat',
              'Asian' = 'race_asian',
              'Hispanic or Latino/x' = 'hispanic'),
-           robust = TRUE) +
-  labs(title = 'What predicts someone intentionally searched for information',
-       caption = 'Exponentiated Coefficients: Scaled and Robust') +
-  ylab("") +
+          robust = TRUE,
+           exp = TRUE) +
+  labs(caption = "Coefficient for 'Gender, Other' not displayed") + 
+  ylab("") + xlab("Exponentiated Coefficients, scaled & robust") + 
   theme_diss() +
-  scale_color_manual(values = my_palette[3])
+  scale_color_manual(values = my_palette[6])
 ```
   
 Table \@ref(tab:table-model-1) provides the results of my logistic regression
@@ -705,7 +511,7 @@ most demographic variables don't seem to have a strong effect on whether someone
 sought out information about the Covid-19 vaccine, a few key variables had strong
 associations. Age, for instance, is associated with seeking information; every 
 additional year of age a person holds they are
-`r label_percent()(exp(mod1$coefficients[['age']])-1)` 
+`r scales::label_percent()(exp(mod1$coefficients[['age']])-1)` 
 more likely to search for information, possibly indicating a generational effect
 of information seeking patterns ( _p_ < 0.01). Additionally, those who were more 
 educated, that is those with an associate's degree or higher, were 
@@ -719,7 +525,7 @@ the relationship between the coefficients and information seeking.
 
 
 
-## Information Search Vehicles
+### Information Search Vehicles
 
 ```{r model-2-phi}
 phi <- rain %>% 
@@ -746,8 +552,7 @@ phi_squared_tests <-
 kable(phi_squared_tests, digits=3,  
       caption = "Phi Coefficient ($\\phi$) of binary association between each Information Search Vehicle",
       col.names = c("",'Person', 'Dr', 'Online Forum', 'Social Networking Site', 'Online Search')) %>% 
-  kable_styling(latex_options = c("hold_position", "striped"),
-                full_width = F) 
+  kable_styling(latex_options = c("hold_position", "striped")) 
 
 ```
 
@@ -769,16 +574,7 @@ Information Search Vehicle are related to each other using the Phi Coefficient
 ($\\phi$) of binary association between each Information Search Vehicle pair.
 The Phi coefficient can be interpreted like a correlation coefficient, with
 numbers closer to -1 or positive one indicating a very strong relationship
-[@warrens08]. Table \@ref(tab:model-2-phi) shows the results of these
-coefficients. Out of the five information search vehicles investigated, there is
-evidence that the vehicles are distinctly different concepts because most
-coefficients fall under 0.3, the general rule of thumb for correlation
-coefficients to indicate a relationship. There does seem to be a relationship
-between Online Forums and Social Networking Sites, possibly due to an
-individual's propensity to use online networks over in-person networks. These
-coefficients indicate a weak relationship between any two vehicles of
-information search and that respondents in my sample utilize each of these a
-little bit differently.
+. Table \@ref(tab:model-2-phi) shows...
 
 ```{r table-model-2}
 #| results = "asis"
@@ -887,10 +683,10 @@ information from the news or television were
 `r round(exp(part2_models$Doctor$coefficients[['receive_i_fr_tv1']]), 2)`
 times more likely ( _p_ < 0.01). I also find that those who received information
 from an online forum like a subreddit were 
-`r label_percent()(round(exp(part2_models$Doctor$coefficients[['receive_i_fr_onlgroup1']]), 2)-1)`
+`r scales::label_percent()(round(exp(part2_models$Doctor$coefficients[['receive_i_fr_onlgroup1']]), 2)-1)`
 more likely to ask their doctors than those who hadn't ( _p_ < 0.05). Finally, 
 respondents with an associate's degree or higher were 
-`r label_percent()(round(exp(part2_models$Doctor$coefficients[['college1']]), 2)-1)`
+`r scales::label_percent()(round(exp(part2_models$Doctor$coefficients[['college1']]), 2)-1)`
 more likely to ask their doctor for information on the Covid-19 vaccinations
 than those who held less education ( _p_ < 0.01).
 
@@ -910,7 +706,7 @@ same people; in fact, I find that those who did are
 `r round(exp(part2_models$Person$coefficients[['receive_i_fr_pers1']]), 2)` more
 likely to do so ( _p_ < 0.001). Finally, the respondents who received information
 about the vaccine on a social networking site were 
-`r label_percent()(round(exp(part2_models$Person$coefficients[['receive_i_fr_onlnet1']]), 2)-1)`
+`r scales::label_percent()(round(exp(part2_models$Person$coefficients[['receive_i_fr_onlnet1']]), 2)-1)`
  more likely to seek information from their personal network than those who hadn't 
 ( _p_ < 0.01). The unexpected result of this model is that very few factors predict
 personal social network activation, and this model has the lowest McFadden's R^2, 
@@ -934,16 +730,16 @@ degree or above were
 `r round(exp(part2_models$'Online Forum'$coefficients[['college1']]), 2)` times
 more likely to search for information on an online forum ( _p_ < 0.001). Finally,
 I found a racial-ethnic with Hispanic-Latinos; I found that they were about 
-`r label_percent()(exp(part2_models$'Online Forum'$coefficients[['hispanic1']])-1)`
+`r scales::label_percent()(exp(part2_models$'Online Forum'$coefficients[['hispanic1']])-1)`
 more likely to query an online forum than non-Hispanics ( _p_ < 0.05). However, 
 there were also a few variables that lowered the odds of posting in an online 
 discussion group. First, those who had received information from a social 
 networking site were
-`r label_percent()(1-exp(part2_models$'Online Forum'$coefficients[['receive_i_fr_onlnet1']]))` 
+`r scales::label_percent()(1-exp(part2_models$'Online Forum'$coefficients[['receive_i_fr_onlnet1']]))` 
 less likely to query a forum than those who hadn't (relative odds ratio =
 $1 - exp(\beta k)$, _p_ < 0.01). Moreover, I find more ethnoracial effects: 
 Respondents who claimed Asian ancestry were 
-`r label_percent()(1-exp(part2_models$'Online Forum'$coefficients[['race_asian1']]))` 
+`r scales::label_percent()(1-exp(part2_models$'Online Forum'$coefficients[['race_asian1']]))` 
 less likely to query online forum ( _p_ < 0.01).
 
 The fourth model predicts whether an individual sought information about 
@@ -964,7 +760,7 @@ I found a relationship between education and posting on social networking sites
 as well; specifically, those with an Associate's degree or above were `r round(exp(part2_models$'Social Networking Site'$coefficients[['college1']]), 2)` times more likely to post vaccination 
 queries on social networking sites than those with lower education ( _p_ < 0.001).
 Finally, I find that Hispanic-Latinos were 
-`r label_percent()(exp(part2_models$'Social Networking Site'$coefficients[['hispanic1']])-1)`
+`r scales::label_percent()(exp(part2_models$'Social Networking Site'$coefficients[['hispanic1']])-1)`
 more likely to ask their connections on a social networking site about the 
 Covid-19 vaccinations than non-Hispanics ( _p_ < 0.01).
 
@@ -987,18 +783,18 @@ Online Forum:
 `r round(exp(part2_models$'Online Search'$coefficients[['receive_i_fr_onlgroup1']]), 2)` odds).
 I also find that older respondents were more likely to search online, with each 
 addition year aged to yield
-`r label_percent()(exp(part2_models$'Online Search'$coefficients[['age']])-1)`
+`r scales::label_percent()(exp(part2_models$'Online Search'$coefficients[['age']])-1)`
 higher odds of searching online ( _p_ < 0.001). The most interesting variations
 come from what decreases the odds of online search. First, those with an
 Associate's degree or higher were 
-`r label_percent()(1-exp(part2_models$'Online Search'$coefficients[['college1']]))` 
+`r scales::label_percent()(1-exp(part2_models$'Online Search'$coefficients[['college1']]))` 
 less likely to search online for questions about Covid-19 than those with less
 educational attainment ( _p_ < 0.001). In addition, I find that Hispanic-Latinos 
-had `r label_percent()(1-exp(part2_models$'Online Search'$coefficients[['hispanic1']]))` 
+had `r scales::label_percent()(1-exp(part2_models$'Online Search'$coefficients[['hispanic1']]))` 
 lower odds of searching online than non-Hispanics ( _p_ < 0.05). 
 
 
-## Vaccination Views
+### Vaccination Views
 
 ```{r table-model-3}
 #| results = "asis"
@@ -1057,11 +853,11 @@ also increases the odds of vaccination by
 `r round(exp(mod3$coefficients[['int_sought_fr_dr1']]), 2)` ( _p_ < 0.001).
 I find that my respondents who received information on a social networking site 
 like Facebook or Twitter about the vaccines were 
-`r label_percent()(1-round(exp(mod3$coefficients[['receive_i_fr_onlnet1']]), 2))` 
+`r scales::label_percent()(1-round(exp(mod3$coefficients[['receive_i_fr_onlnet1']]), 2))` 
 **less likely** to get vaccinated than those who received no information through
 that vehicle ( _p_ < 0.001). However, I did find that those who reached out to
 family or friends with their concerns were 
-`r label_percent()(exp(mod3$coefficients[['int_sought_fr_pers1']])-1)` more likely
+`r scales::label_percent()(exp(mod3$coefficients[['int_sought_fr_pers1']])-1)` more likely
 to become vaccinated ( _p_ < 0.05). Furthermore, my respondents who held an 
 Associate's degree or above had `r round(exp(mod3$coefficients[['college1']]), 2)`
 higher odds of becoming immunized ( _p_ < 0.001). And finally, I found further
@@ -1092,116 +888,22 @@ plot_summs(mod3,
              'Sought Info, Online Forum' = 'int_sought_fr_onlgroup',
              'Sought Info, Online Search' = 'int_sought_fr_onlsearch',
              'Age' = 'age',
-             'Gender, Male' = 'gender=Male',
-             'Gender, Other' = 'gender=Other',
+             'Gender, Male' = 'genderMale',
+             # 'Gender, Other' = 'genderOther',
              "Associate's Deg or above" = 'college',
              'White' = 'race_white',
              'Black' = 'race_black',
              'Native American' = 'race_nat',
              'Asian' = 'race_asian',
              'Hispanic or Latino/x' = 'hispanic'),
-           robust = TRUE) +
-  labs(title = 'Does receiving or searching for information predict vaccination sentiment?', 
-       caption = 'Exponentiated Coefficients: Scaled and Robust') + 
-  ylab("") +
+           robust = TRUE,
+           exp = TRUE) +
+  labs(caption = "Coefficient for 'Gender, Other' not displayed") + 
+  ylab("") + xlab("Exponentiated Coefficients, scaled & robust") + 
   theme_diss()+
-  scale_color_manual(values = my_palette[3])
+  scale_color_manual(values = my_palette[6])
 ```
 
-# Discussion
-Previous research in Sociology and Infodemiology has greatly failed to
-distinguish between the activation of information seeking behaviors online and
-offline. In this paper, I aim to uncover just how different various methods of
-information search are and begin a line of research inquiry that investigates
-the factors associated with each different vehicle. Finally, I also aimed to
-uncover how the different fountains of information and information search
-vehicles hold real world consequences through their associations with Covid-19
-vaccination rates and intentions.
-
-I first find that receiving information about Covid-19 vaccinations from any
-outlined source increases the likelihood of searching out more information. I
-also find important demographic differences in the overall propensity to seek
-out information. First, I find that the older a respondent is, the more likely
-they are to seek out information about Covid-19 vaccinations, possibly
-indicating a larger information need by elderly populations overall, or a more
-pressing need to search for information about the Covid-19 vaccinations because
-of the higher risk of hospitalizations that older populations face
-[@turner_etal18]. Furthermore, I find that those who are college educated were
-more likely to seek out information; for the most part this trend can be
-observed in Table \@ref(tab:table-model-2) as well. Human Capital Theory
-[@mirowsky_ross98] may help to explain this finding; this theory claims that
-higher education can provides the skills to gain health-related knowledge and
-use this knowledge to be proactive in their own lives. Finally, I find that my
-respondents who identified as Black were more likely to seek out further
-information; this may be explained by the maltreatment that African Americans
-have endured in the US healthcare system [@baileyStructuralRacismHealth2017]
-which has led to major distrust of the medical establishment among the
-population [@center2019a; @murray15; @bronson2014don].
-
-Table \@ref(tab:table-model-2) further demonstrated important takeaways about
-how individuals seek information. First, I find that the different information
-seeking vehicles queried in this survey are conceptually different and that the
-utilization of different varies by demographic and supply (information fountain?
-~ source of having receiving information). Overall, receiving information about
-Covid-19 vaccination generally is associated with information seeking behaviors,
-though there are key variations. First, if you received information from a
-doctor, you were likely to search from information from a doctor; this may
-indicate an already existing trusting relationship between patient and
-healthcare provider but it may also indicate the healthcare provider taking
-initiaive and emphasizing the importance of the vaccine or the survey respondent
-seeking out information from an expert. Another important finding is that if you
-received information from a Social Networking Site like Facebook or Twitter, you
-were less likely to query Online Forums like Reddit or Facebook Groups; this may
-be an example of Uses and Gratification Theory
-[@blumlerUsesMassCommunications1974], where the two online platforms may act as
-substitute sources of information and those who were satisfied with the
-information they received on a Social Networking Site didn't have the need to
-seek out more information. Finally, the ethnoracial variations exhibited in
-Table \@ref(tab:table-model-2) likely demonstrate how cultural attitudes around
-the trustworthiness of different sources of information affect the utilization
-of different methods; for example, Asians seem are less likely to use online
-forums than non-Asians while Hispanics are more likely to use them than
-non-Hispanics. The internal variations between the different information search
-vehicles hint at different user profiles and may have major repercussions on the
-quality of information they find and who is exposed to poor quality information.
-
-
-Given the rampant misinformation around Covid-19, her related vaccinations
-[@pathakInfodemicsCOVID19Role2020; @mottaHowRightLeaningMedia2020; 
-@shahsavariConspiracyTimeCorona2020] and the slowed rate of vaccinations in the
-United States, it is important to uncover what relationship the different
-fountains of information and information search vehicles for Covid-19 vaccinations
-are associated with compliance with public health recommendations. Table
-\@ref(tab:table-model-3) demonstrated just how these different fountains of
-information and information search vehicles are associated with real world
-consequences through Covid-19 vaccination rates and intentions. The first
-takeaway is that receiving or seeking information from a doctor or other medical
-profession was associated with higher likelihood of completed or planned vaccinations.
-While blanket advice like "Healthcare Providers should recommend the vaccine to
-their patients" would be ineffective because of the declining number of
-Americans with a primary care doctor [@levine_etal20], increasing trust in the
-institution of medicine seems to remain a strong predictor of vaccinations. 
-<!-- add more here, there is a huge logical and sampling fallacy here --> 
-A second major takeaway is that receiving information from a Social Networking
-Site like Facebook timeline or Twitter status update was significantly
-associated with lower vaccination rates. While we don't know what exact
-information was absorbed on these platforms, the lower odds of vaccination
-indicate that it was not positive. Much has been attempted between 2020 and 2022
-to curb vaccine misinformation on these social networking platforms [see
-@bowman20 for an early example]; however, I find evidence that these social
-networking platforms nevertheless have a measurable negative impact. Finally,
-this study also contributes to the conversation on ethnoracial and
-educational differences in vaccine hesitancy. I find in my sample that
-Hispanic-Latinos and Asians were more likely than non-Hispanics and non-Asians
-to receive or plan to receive a vaccination against Covid-19 (Table
-\@ref(tab:table-model-3)). Research in this area has mixed results, with some
-studies showcasing consistent findings to these [@bagasra_etal21; @king_etal21],
-while others show that Whites have the lowest levels of vaccine hesitancy and
-many minorities are much more hesitant [@momplaisir_etal21;
-@foxworth21]. My finding that college-educated respondents were more likely seek
-vaccination is largely consistent with the broader literature
-[@khairat_etal22], though again there are many variations depending on the vaccine
-in question and study context [@siddiqui_etal13].
 
 ```{r include = FALSE}
 plot_df <- tribble(~vacc_view_pos, ~n, ~race)
@@ -1256,6 +958,7 @@ race_plot <- plot_df %>%
   labs(fill = "Vaccinated\n or plans to") +
   scale_fill_manual(values = my_palette[c(2, 8)]) +
   coord_flip()
+
 educ_plot <- rain %>% 
   count(educ, vacc_view_pos) %>% 
   filter(!is.na(vacc_view_pos),
@@ -1277,189 +980,3 @@ library(patchwork)
 (race_plot + educ_plot)+ plot_layout(guides = "collect") + patchwork::plot_annotation(title = "Percent Vaccinated Against Covid-19", caption = glue("Notes: {nrow(rain)} Surveyed, Conducted {format( min(rain$date), '%B %d')} through {format(max(rain$date), '%B %d')}, 2021."))
 
 ```
-
-# Conclusion
-Previous research has greatly failed to distinguish between the activation of
-information seeking behaviors online and offline and largely focuses on the
-information that is sent to consumers [push], seeing people as passive receivers
-of information. In this paper, I instead focus on individuals as active agents
-in their search for information to  begin a line of research inquiry that
-investigates the factors associated with the various methods of information
-search.
-
-Given the large swaths of both misinformation and disinformation regarding
-Covid-19 [@pathakInfodemicsCOVID19Role2020; @mottaHowRightLeaningMedia2020;
-@shahsavariConspiracyTimeCorona2020] and the measurable impacts this
-misinformation has had on pandemic-related health behaviors
-[@loombaMeasuringImpactCOVID192021], Covid-19 provides an ideal study to
-investigate how we choose to search for information that affects both our own
-lives and the lives of others.
-
-This paper has provided several key findings that can be used to motivate policy
-interventions for the Covid-19 vaccination campaigns and in the future for other
-information campaigns. However, these findings are not to be taken out of the
-context of their limitations. This paper is built off a small survey sample (
-`r nrow(rain)`) that was hosted online and anonymously through MTurk, a service
-that provides people with micro-jobs. Because of how the website is set up,
-respondents are incentivized to fill out surveys as quick as possible and there
-were many responses that were poor quality and removed from the sample before
-analysis. Because of this, there is no incentive for respondents to be honest in
-these surveys. However, each of these limitations are often pointed to as
-limitations of survey research as a whole. Even given these limitations,
-the finding of this paper are interesting contributions to the literature.
-
-Overall, this research project is important because the vehicles used in
-information search impacts the information and quality of information found. By
-looking at how individuals search, I aim to identified pain points and focus areas
-for future interventions (receiving information online; ethnoracial variations; ) in the misinformation process.
-
-
-\newpage
-
-# References {-}
-
-<div id="refs"></div>
-
-\newpage
-
-# Appendix 1: Survey Questions
-
-
-
--------------------------------------------------   
-
-*Q181*: Now, we're going to transition a bit to ask you about the information you received during the Covid-19 pandemic.
-
--------------------------------------------------   
-
-*Q170*: In the past 12 months, without searching for it, did you receive information about the Covid-19 vaccine from … (check all sources you received information from)  
-
-*	your doctor or other health professional?   (1) 
-*	a person like friend, neighbor, or family member that you know ?  (9) 
-*	From television news channel or the newspaper?  (10) 
-*	From an online discussion group, listserve, or other online forum including a Facebook group or subreddit?  (11) 
-*	From a social networking site such as Facebook timeline, Twitter status update, or LinkedIn?  (12) 
-*	Other  (13) _______
-
-
--------------------------------------------------   
-
-*Q171*: And how about you yourself intentionally looking for information about a Covid-19 vaccine? Such information can include things such as advice, clarification, facts, and experiences. 
-
-*	Yes  (4) 
-*	No  (5) 
-
--------------------------------------------------   
-
-*Q172*: How did you look for information about the Covid-19 vaccine?  
-
-*	Asking a person like friend, neighbor, or family member that I know  (1) 
-*	Asking my doctor or another health professional  (4) 
-*	Posted queries in an online discussion group, listserve, or other online forum like a Facebook Group or Subreddit  (5) 
-*	Posted queries on a social networking site such as Facebook timeline, Twitter status update, or LinkedIn  (6) 
-*	Searched for my question using an online search engine such as Google or Bing  (7) 
-*	Other  (8) ___________
-
--------------------------------------------------   
-
-*Q173*: What sort of information did you search for? 
- Separate different topics with a comma or semi-colon. 
- 
--------------------------------------------------   
-
-*Q174*: How useful was the information you found?  
-
-*	Extremely useful  (22) 
-*	Very useful  (23) 
-*	Moderately useful  (24) 
-*	Slightly useful  (25) 
-*	Not at all useful  (26) 
-
--------------------------------------------------   
-
-*Q175*: Did the information you learned affect your decision to get vaccinated against Covid-19?  
-
-*	Yes  (39) 
-*	No  (40) 
-
--------------------------------------------------   
-
-*Q179*: Did you receive a Covid-19 vaccine?  
-
-*	Yes  (9) 
-*	No  (10) 
-*	I'm unsure or would not like to respond  (11) 
-
--------------------------------------------------   
-
-*Q180*: Do you plan to receive a vaccine for the prevention of the Covid-19 virus?  
-
-*	Definitely not  (9) 
-*	Probably not  (10) 
-*	Might or might not  (11) 
-*	Probably yes  (12) 
-*	Definitely yes  (13) 
-*	I would not like to respond  (14) 
-
--------------------------------------------------   
-
-*gender*: What is your gender?  
-
-*	Male  (1) 
-*	Female  (2) 
-*	Other  (3) ________________
-*	Prefer not to say  (4) 
-
--------------------------------------------------   
-
-*hispanic*: Are you Hispanic, Latino/a/x, or Latin American Origin?  
-
-*	Yes  (1) 
-*	No  (2) 
-
--------------------------------------------------   
-
-*race*: What is your race? If you are "mixed race", select all that apply.  
-
-*	White  (1) 
-*	Black or African American  (2) 
-*	American Indian or Alaskan Native  (3) 
-*	Asian (please specify):  (4) _______
-*	Other (please specify):  (5) _______
-*	Prefer not to say  (6) 
-
--------------------------------------------------   
-
-*educ*: What is the highest level of education that you have completed?   
-
-*	Less than high school  (1) 
-*	High school graduate  (2) 
-*	Some college  (3) 
-*	Associate's or Technical degree  (4) 
-*	Bachelor's degree  (5) 
-*	Graduate or professional degree  (6) 
-
--------------------------------------------------   
-
-*income*: We would be interested to know roughly what your total household income
-before taxes is. We mean income from all sources, including welfare, stock
-dividends, other household members' income, etc. In 2020, in which bracket did your total family income fall?  
-
-*	Under $1,000  (1) 
-*	\$1,000 to \$9,999   (2) 
-*	\$10,000 to \$19,999  (3) 
-*	\$20,000 to \$29,999  (4) 
-*	\$30,000 to \$39,999  (5) 
-*	\$40,000 to \$49,999  (6) 
-*	\$50,000 to \$59,999  (7) 
-*	\$60,000 to \$74,999  (8) 
-*	\$75,000 to \$89,999   (9) 
-*	\$90,000 to \$109,999  (10) 
-*	\$110,000 to \$129,999  (11) 
-*	\$130,000 to \$149,999  (12) 
-*	\$150,000 or over  (13) 
-*	Don't know  (14) 
-
--------------------------------------------------   
-
-*age*: What is your age? (in years)  
